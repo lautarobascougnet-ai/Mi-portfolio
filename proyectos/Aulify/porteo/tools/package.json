@@ -1,0 +1,10 @@
+{
+	"private": true,
+	"scripts": { "assets": "node generate-mobile-assets.cjs" },
+	"devDependencies": {
+		"qrcode": "1.5.4",
+		"sharp": "0.34.5",
+		"playwright-core": "1.56.1",
+		"jsqr": "1.4.0"
+	}
+}

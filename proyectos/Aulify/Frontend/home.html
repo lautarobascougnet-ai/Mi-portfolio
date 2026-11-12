@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="es" class="text-[100%] lg:text-[81.25%]">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<title>Profesores | Aulify</title>
+			<!-- Configuración de la app instalable. -->
+		<link rel="manifest" href="../porteo/manifest.webmanifest" />
+		<link rel="apple-touch-icon" href="../porteo/icons/apple-touch-icon.png" />
+		<meta name="theme-color" content="#626780" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-title" content="Aulify" />
+		<script src="../porteo/js/pwa.js" defer></script>
+	<link rel="stylesheet" href="css/reservas.css" />
+<script src="js/reservas-home.js?v=20261014" defer></script>
+</head>
+	<body hidden data-private-page
+		class="text-[calc(1rem+2px)] [overflow-wrap:anywhere] [&_input]:min-w-0 [&_input]:max-w-full [&_select]:max-w-full min-h-screen bg-[#626780] font-['Space_Grotesk'] text-[#FFFFFF] antialiased  flex min-h-screen flex-col !pb-0 [&[hidden]]:!hidden [&>main]:w-full [&>header]:w-full"
+	>
+		<script src="js/api.js?v=20261014"></script>
+		<!-- Navegación principal, menú de perfil y cierre de sesión. -->
+		<header
+			class="fixed inset-x-0 top-0 z-50 border-b border-[#eef0f2]/25 bg-[#626780]/95 backdrop-blur-md"
+		>
+			<div
+				class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8"
+			>
+				<a
+					href="home.html"
+					class="flex items-center gap-3 text-[calc(1.125rem+2px)] font-semibold tracking-tight"
+				>
+					<img
+						src="aulify-icon.svg"
+						alt="Logo de Aulify"
+						class="h-10 w-10 rounded-full object-cover shadow-[0_8px_20px_rgba(21,154,197,0.22)]"
+					/>
+					<span class="font-[Georgia] text-[calc(1.5rem+2px)] font-normal uppercase tracking-[-0.05em] !text-[#eef0f2]">Aulify</span>
+				</a>
+				<nav
+					class="hidden items-center gap-5 text-[calc(0.6875rem+2px)] font-semibold uppercase tracking-wide lg:flex"
+					aria-label="Navegación principal"
+				>
+					<a href="#materias" class="transition hover:text-[#a8e6a1]"
+						>Materias</a
+					>
+					<a href="serprofe.html" class="transition hover:text-[#a8e6a1]"
+						>Ser profesor</a
+					>
+					<a href="user.html" class="transition hover:text-[#a8e6a1]">Perfil</a>
+					<a href="#profesores" class="transition hover:text-[#a8e6a1]"
+						>Profesores</a
+					>
+					<a href="misclases.html" class="transition hover:text-[#a8e6a1]">Mis clases</a>
+					<a href="apuntes.html" class="transition hover:text-[#a8e6a1]">Mis apuntes</a>
+				</nav>
+				<div class="relative flex items-center gap-3">
+					<span
+						id="user-greeting"
+						data-user-greeting
+						class="hidden max-w-36 truncate text-[calc(.875rem+2px)] text-[#eef0f2] sm:inline"
+						>Hola</span
+					>
+					<button
+						id="profile-button"
+						type="button"
+						aria-label="Abrir perfil"
+						aria-expanded="false"
+						aria-controls="profile-menu"
+						class="flex h-10 w-10 items-center justify-center rounded-full border border-[#bacbd8] bg-[#dce9f3] text-[#171c24] transition hover:border-[#159ac5] text-[#171c24] text-[#171c24]      [&_h2]:text-[#171c24] [&_h3]:text-[#171c24] [&_p]:text-[#52616b] [&_span]:text-[#171c24] [&_a]:text-[#06165e]"
+					>
+						<img
+							data-user-avatar
+							src="aulify-icon.svg"
+							alt="Perfil"
+							class="h-5 w-5 rounded-full object-cover"
+						/>
+					</button>
+					<div
+						id="profile-menu"
+						class="invisible absolute right-0 top-14 w-56 origin-top-right scale-95 rounded-xl border border-[#bacbd8] bg-[#dce9f3] p-2 opacity-0 shadow-[0_18px_40px_rgba(23,33,43,0.16)] transition-all text-[#171c24]      [&_h2]:text-[#171c24] [&_h3]:text-[#171c24] [&_p]:text-[#52616b] [&_span]:text-[#171c24] [&_a]:text-[#06165e]"
+						role="menu"
+					>
+						<div class="border-b border-[#e1ddd4] px-3 pb-3 pt-2">
+							<p class="text-[calc(.75rem+2px)] uppercase tracking-[0.14em] text-[#899397]">
+								Mi cuenta
+							</p>
+							<p data-user-name class="mt-1 text-[calc(.875rem+2px)] font-semibold">Usuario</p>
+						</div>
+						<a href="misclases.html" role="menuitem" class="block rounded-lg px-3 py-3 text-[calc(.875rem+2px)] hover:bg-white">Mis clases</a>
+						<a
+							href="user.html"
+							class="mt-2 flex items-center gap-3 rounded-lg px-3 py-2.5 text-[calc(.875rem+2px)] text-[#52616b] transition hover:bg-[#e8f7fb] hover:text-[#127d9f]"
+							role="menuitem"
+							><svg
+								class="h-4 w-4"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="1.8"
+								aria-hidden="true"
+							>
+								<path d="M12 8v4l2.5 1.5"></path>
+								<circle cx="12" cy="12" r="8"></circle></svg
+							>Configuración</a
+						>
+						<button
+							id="logout-button"
+							type="button"
+							class="mt-1 flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-[calc(.875rem+2px)] text-[#b34b45] transition hover:bg-[#fff0ee]"
+							role="menuitem"
+						>
+							<svg
+								class="h-4 w-4"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="1.8"
+								aria-hidden="true"
+							>
+								<path d="M10 5H5v14h5M14 8l4 4-4 4M18 12H9"></path></svg
+							>Cerrar sesión
+						</button>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<main class="mx-auto max-w-7xl px-6 pb-20 pt-28 lg:px-8">
+<section id="booking-notifications" class="home-bookings" hidden aria-live="polite"></section>
+			<!-- Portada inicial con materias disponibles. -->
+			<section
+				id="materias"
+				class="flex min-h-[calc(100vh-7rem)] flex-col justify-center py-12 sm:py-16"
+			>
+				<div class="mx-auto w-full max-w-5xl">
+					<h1
+						class="text-center text-[calc(2.25rem+2px)] font-bold tracking-[-0.04em] sm:text-[calc(3rem+2px)]"
+					>
+						Materias <span class="text-[#a8e6a1]">populares.</span>
+					</h1>
+					<div
+						id="published-subjects" class="mt-12 grid gap-4 text-[#171c24] [&>a]:border-[#bacbd8] [&>a]:bg-[#dce9f3] [&>a:hover]:border-[#06165e] [&_p]:text-[#52616b] [&_span]:text-[#06165e] md:grid-cols-2 lg:grid-cols-3"
+					>
+						<!-- Materias populares permanentes, incluso cuando no tienen clases publicadas. -->
+						<a href="?materia=matematicas#profesores" data-subject="matematicas" class="subject-card flex min-w-0 flex-col rounded-lg border p-5 transition duration-200 hover:-translate-y-1">
+							<h2 class="text-[calc(1.125rem+2px)] font-bold leading-snug">Matemáticas</h2>
+							<p class="mt-3 text-[calc(.875rem+2px)] leading-relaxed">Aprendé álgebra, geometría y cálculo con ejercicios prácticos.</p>
+							<span class="mt-auto pt-5 inline-block text-[calc(.75rem+2px)] font-bold">Ver clases →</span>
+						</a>
+						<a href="?materia=ingles#profesores" data-subject="ingles" class="subject-card flex min-w-0 flex-col rounded-lg border p-5 transition duration-200 hover:-translate-y-1">
+							<h2 class="text-[calc(1.125rem+2px)] font-bold leading-snug">Inglés</h2>
+							<p class="mt-3 text-[calc(.875rem+2px)] leading-relaxed">Aprendé inglés conversacional y gramática para viajes y trabajo.</p>
+							<span class="mt-auto pt-5 inline-block text-[calc(.75rem+2px)] font-bold">Ver clases →</span>
+						</a>
+						<a href="?materia=dibujo#profesores" data-subject="dibujo" class="subject-card flex min-w-0 flex-col rounded-lg border p-5 transition duration-200 hover:-translate-y-1">
+							<h2 class="text-[calc(1.125rem+2px)] font-bold leading-snug">Dibujo</h2>
+							<p class="mt-3 text-[calc(.875rem+2px)] leading-relaxed">Aprendé técnicas de dibujo y pintura para desarrollar tu creatividad.</p>
+							<span class="mt-auto pt-5 inline-block text-[calc(.75rem+2px)] font-bold">Ver clases →</span>
+						</a>
+						<a href="?materia=derecho#profesores" data-subject="derecho" class="subject-card flex min-w-0 flex-col rounded-lg border p-5 transition duration-200 hover:-translate-y-1">
+							<h2 class="text-[calc(1.125rem+2px)] font-bold leading-snug">Derecho</h2>
+							<p class="mt-3 text-[calc(.875rem+2px)] leading-relaxed">Estudiá derecho constitucional, penal y civil con casos prácticos.</p>
+							<span class="mt-auto pt-5 inline-block text-[calc(.75rem+2px)] font-bold">Ver clases →</span>
+						</a>
+						<a href="?materia=frances#profesores" data-subject="frances" class="subject-card flex min-w-0 flex-col rounded-lg border p-5 transition duration-200 hover:-translate-y-1">
+							<h2 class="text-[calc(1.125rem+2px)] font-bold leading-snug">Francés</h2>
+							<p class="mt-3 text-[calc(.875rem+2px)] leading-relaxed">Aprendé francés desde cero con lecciones interactivas y ejercicios.</p>
+							<span class="mt-auto pt-5 inline-block text-[calc(.75rem+2px)] font-bold">Ver clases →</span>
+						</a>
+						<a href="?materia=programacion#profesores" data-subject="programacion" class="subject-card flex min-w-0 flex-col rounded-lg border p-5 transition duration-200 hover:-translate-y-1">
+							<h2 class="text-[calc(1.125rem+2px)] font-bold leading-snug">Programación</h2>
+							<p class="mt-3 text-[calc(.875rem+2px)] leading-relaxed">Aprendé a programar en Python, JavaScript y bases de datos.</p>
+							<span class="mt-auto pt-5 inline-block text-[calc(.75rem+2px)] font-bold">Ver clases →</span>
+						</a>
+						<a href="?materia=biologia#profesores" data-subject="biologia" class="subject-card flex min-w-0 flex-col rounded-lg border p-5 transition duration-200 hover:-translate-y-1">
+							<h2 class="text-[calc(1.125rem+2px)] font-bold leading-snug">Biología</h2>
+							<p class="mt-3 text-[calc(.875rem+2px)] leading-relaxed">Explorá la vida desde el ADN hasta los ecosistemas naturales.</p>
+							<span class="mt-auto pt-5 inline-block text-[calc(.75rem+2px)] font-bold">Ver clases →</span>
+						</a>
+						<a href="?materia=historia#profesores" data-subject="historia" class="subject-card flex min-w-0 flex-col rounded-lg border p-5 transition duration-200 hover:-translate-y-1">
+							<h2 class="text-[calc(1.125rem+2px)] font-bold leading-snug">Historia</h2>
+							<p class="mt-3 text-[calc(.875rem+2px)] leading-relaxed">Comprendé procesos históricos y conectá el pasado con el presente.</p>
+							<span class="mt-auto pt-5 inline-block text-[calc(.75rem+2px)] font-bold">Ver clases →</span>
+						</a>
+						<a href="?materia=economia#profesores" data-subject="economia" class="subject-card flex min-w-0 flex-col rounded-lg border p-5 transition duration-200 hover:-translate-y-1">
+							<h2 class="text-[calc(1.125rem+2px)] font-bold leading-snug">Economía</h2>
+							<p class="mt-3 text-[calc(.875rem+2px)] leading-relaxed">Entendé microeconomía, macroeconomía y finanzas personales.</p>
+							<span class="mt-auto pt-5 inline-block text-[calc(.75rem+2px)] font-bold">Ver clases →</span>
+						</a>
+					</div>
+				</div>
+			</section>
+
+			<!-- Buscador superior, filtros laterales y cartas de profesores. -->
+			<section id="profesores" class="scroll-mt-24 py-10 text-white">
+				<label class="mx-auto mb-8 flex max-w-2xl items-center gap-3 rounded-full bg-black px-5 py-3 text-white">
+					<span aria-hidden="true">☰</span>
+					<input id="search-filter" type="search" aria-label="Buscar profesor" placeholder="Buscar profesor..." class="w-full bg-black text-[calc(.875rem+2px)] text-white outline-none placeholder:text-white/70" />
+				</label>
+				<div class="grid items-start gap-8 lg:grid-cols-[13rem_minmax(0,1fr)]">
+					<aside aria-label="Filtros de profesores" class="space-y-5 text-[calc(.875rem+2px)]">
+						<div class="flex flex-col items-start gap-3"><h2 class="font-bold">Filtros</h2><button id="clear-filters" type="button" class="w-full rounded-lg border border-[#bacbd8] bg-[#dce9f3] px-3 py-3 text-[calc(.875rem+2px)] font-semibold text-[#06165e] transition hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-white">Restablecer filtros</button></div>
+						<label class="block">Materia<select id="subject-filter" class="filter mt-2 w-full rounded-lg bg-black p-3 text-white"><option value="">Todas las materias</option></select></label>
+						<label class="block">Moneda<select id="currency-filter" class="mt-2 w-full rounded-lg bg-black p-2 text-white"><option value="ARS">Pesos argentinos (ARS)</option><option value="USD">Dólares estadounidenses (USD)</option><option value="EUR" selected>Euros (EUR)</option></select></label><label class="block">Precio máximo: <output id="price-label">50 EUR/hora</output><input id="price-filter" class="mt-3 w-full accent-white" type="range" min="0" max="50" value="50" /></label>
+						<fieldset><legend>Calificación mínima</legend><div class="mt-2 flex gap-1"><button type="button" class="rating-option text-[calc(1.5rem+2px)] text-white" data-value="1" aria-label="1 estrellas">☆</button><button type="button" class="rating-option text-[calc(1.5rem+2px)] text-white" data-value="2" aria-label="2 estrellas">☆</button><button type="button" class="rating-option text-[calc(1.5rem+2px)] text-white" data-value="3" aria-label="3 estrellas">☆</button><button type="button" class="rating-option text-[calc(1.5rem+2px)] text-white" data-value="4" aria-label="4 estrellas">☆</button><button type="button" class="rating-option text-[calc(1.5rem+2px)] text-white" data-value="5" aria-label="5 estrellas">☆</button></div><span id="rating-label" class="text-[calc(.75rem+2px)]">Todas</span></fieldset>
+						<fieldset><legend class="mb-2">Modalidad</legend><label class="mb-2 block"><input class="filter accent-white" type="radio" name="mode" value="" checked /> Todas</label><label class="mb-2 block"><input class="filter accent-white" type="radio" name="mode" value="virtual"  /> Virtual</label><label class="mb-2 block"><input class="filter accent-white" type="radio" name="mode" value="presencial"  /> Presencial</label></fieldset>
+						<p class="text-[calc(.75rem+2px)] leading-5 text-white/70">Horarios y días: aún no hay disponibilidad publicada.</p>
+					</aside>
+					<div>
+						<div class="mb-5 flex flex-wrap items-center justify-between gap-3"><div><h2 class="text-[calc(1.5rem+2px)] font-semibold">Clases disponibles</h2><p class="mt-1 text-[calc(.75rem+2px)]"><span id="result-count">0</span> clases encontradas</p></div><label class="text-[calc(.75rem+2px)]">Ordenar por <select id="sort-filter" class="filter rounded-lg bg-black p-2 text-white"><option value="rating">Mejor valorados</option><option value="price">Menor precio</option></select></label></div>
+						<p id="catalog-feedback" role="status" class="mb-4 text-[calc(.875rem+2px)] text-white"></p>
+						<p id="teacher-feedback" role="status" class="mb-4 hidden rounded-lg bg-black p-4 text-[calc(.875rem+2px)] text-white"></p>
+						<!-- Filas comunes: la descripción ocupa el espacio libre y alinea los botones. -->
+						<div id="teacher-list" class="grid gap-5 sm:grid-cols-2 [&_[hidden]]:!hidden [&>article]:grid [&>article]:grid-rows-[auto_auto_auto_auto_auto_1fr_auto]">
+						<!-- El catálogo se carga desde la API: solo clases reales. -->
+						</div>
+						<p id="empty-state" class="hidden rounded-xl bg-black p-8 text-center text-white">No encontramos clases publicadas con esos filtros.</p>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<!-- Pie de página al final del contenido, sin superponerse a la pantalla. -->
+<footer class="!static mt-auto w-full shrink-0 !block !h-auto !p-0 bg-gradient-to-b from-[#626780] via-[#484d63] to-[#171923] text-[#bfc0ca] [&>div>div>p]:!m-0 [&>div>div>p]:!text-[calc(0.6875rem+2px)] [&>div>div>p]:!leading-snug">
+			<div class="mx-auto flex min-h-52 max-w-7xl flex-col justify-between gap-6 px-6 py-6 sm:min-h-44">
+				<div class="flex flex-wrap items-center justify-between gap-3">
+					<a href="home.html" class="flex items-center gap-2 text-white [@media(max-height:600px)]:hidden"><img src="aulify-icon.svg" alt="" class="h-8 w-8" /><span class="font-[Georgia] text-[calc(1.5rem+2px)] uppercase">Aulify</span></a>
+					<nav aria-label="Enlaces del pie de página" class="flex flex-wrap gap-4 text-[calc(.75rem+2px)]"><a href="home.html" class="hover:underline">Inicio</a><a href="misclases.html" class="hover:underline">Mis clases</a></nav>
+				</div>
+				<div class="flex flex-col gap-2 text-[calc(0.6875rem+2px)] leading-snug">
+					<p>© 2026 Aulify. Todos los derechos reservados.</p>
+					<p>Si tiene algún problema con la página, escriba a <a href="mailto:aulify@soporte.com" class="underline">aulify@soporte.com</a>.</p>
+				</div>
+			</div>
+		</footer>
+
+		<!-- Lógica de sesión, filtros, ordenamiento y menús. -->
+		<script src="js/home.js?v=20261014"></script>
+		<script src="js/catalogo-clases.js?v=20261014"></script>
+	</body>
+</html>

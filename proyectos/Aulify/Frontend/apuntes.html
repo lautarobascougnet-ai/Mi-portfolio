@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es">
+<head><script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mis apuntes | Aulify</title>
+  <link rel="icon" href="aulify-icon.svg" />
+  <link rel="stylesheet" href="css/apuntes.css" />
+  <link rel="manifest" href="../porteo/manifest.webmanifest" />
+  <meta name="theme-color" content="#5d6077" />
+  <script src="js/api.js?v=20261014" defer></script>
+  <script src="js/apuntes.js?v=20261014" defer></script>
+  <script src="../porteo/js/pwa.js" defer></script>
+</head>
+<body hidden data-private-page class="[overflow-wrap:anywhere] [&_h1]:!text-[34px] [&_h1]:font-bold [&_h2]:!text-[25px] [&_h2]:font-semibold [&_p]:!text-[18px] [&_p]:!leading-relaxed [&_input]:!text-[18px] [&_textarea]:!text-[18px] [&_button]:!text-[16px] [&_select]:max-w-full [&_header]:flex-wrap [&_main]:min-w-0  flex min-h-screen flex-col !pb-0 [&[hidden]]:!hidden">
+  <header><a class="brand" href="home.html"><img src="aulify-icon.svg" alt="" /> Aulify</a><a href="home.html">← Volver al inicio</a></header>
+  <main>
+    <p class="eyebrow">TU ESPACIO DE ESTUDIO</p>
+    <h1>Mis apuntes</h1>
+    <p class="intro">Guardá lo que aprendés y retomalo en tu próxima clase.</p>
+    <p id="feedback" role="status" aria-live="polite">Cargando tus apuntes…</p>
+    <section id="library" hidden>
+      <div class="toolbar">
+        <button id="create-folder" class="create" type="button"><span aria-hidden="true">＋</span> Nueva carpeta</button>
+        <nav class="tabs" aria-label="Organización de apuntes"><button id="folders-tab" type="button" aria-current="page">Carpetas</button><button id="loose-tab" type="button">Sin carpeta</button></nav>
+      </div>
+      <div id="folder-heading" hidden><button id="back-folders" class="text-button" type="button">← Todas las carpetas</button><h2 id="folder-name"></h2><p id="folder-description"></p></div>
+      <button id="create-note" class="create" type="button" hidden><span aria-hidden="true">＋</span> Nuevo apunte</button>
+      <div id="items" class="items"></div>
+      <div id="empty" class="empty" hidden><h2 id="empty-title"></h2><p id="empty-description"></p></div>
+      <nav id="pagination" class="pagination" aria-label="Páginas"></nav>
+    </section>
+    <section id="editor" hidden aria-labelledby="editor-heading">
+      <button id="close-editor" class="text-button" type="button">← Volver a mis apuntes</button>
+      <h2 id="editor-heading">Nuevo apunte</h2>
+      <form id="note-form">
+        <label for="note-name">Nombre del apunte</label><input id="note-name" required placeholder="Por ejemplo, Ecuaciones de primer grado" />
+        <label for="note-description">Descripción</label><textarea id="note-description" rows="2" placeholder="¿Qué temas viste en esta clase?"></textarea>
+        <label for="note-content">Tu apunte</label><textarea id="note-content" rows="18" placeholder="Escribí acá tus ideas, ejercicios y todo lo que quieras recordar…"></textarea>
+        <div class="editor-actions"><p id="save-status" role="status">Sin cambios pendientes.</p><button id="save-note" class="primary" type="submit">Guardar apunte</button></div>
+      </form>
+    </section>
+  </main>
+<footer class="!static mt-auto w-full shrink-0 !block !h-auto !p-0 bg-gradient-to-b from-[#626780] via-[#484d63] to-[#171923] text-[#bfc0ca] [&>div>div>p]:!m-0 [&>div>div>p]:!text-[calc(0.6875rem+2px)] [&>div>div>p]:!leading-snug">
+			<div class="mx-auto flex min-h-52 max-w-7xl flex-col justify-between gap-6 px-6 py-6 sm:min-h-44">
+				<div class="flex flex-wrap items-center justify-between gap-3">
+					<a href="home.html" class="flex items-center gap-2 text-white [@media(max-height:600px)]:hidden"><img src="aulify-icon.svg" alt="" class="h-8 w-8" /><span class="font-[Georgia] text-[calc(1.5rem+2px)] uppercase">Aulify</span></a>
+					<nav aria-label="Enlaces del pie de página" class="flex flex-wrap gap-4 text-[calc(.75rem+2px)]"><a href="home.html" class="hover:underline">Inicio</a><a href="misclases.html" class="hover:underline">Mis clases</a></nav>
+				</div>
+				<div class="flex flex-col gap-2 text-[calc(0.6875rem+2px)] leading-snug">
+					<p>© 2026 Aulify. Todos los derechos reservados.</p>
+					<p>Si tiene algún problema con la página, escriba a <a href="mailto:aulify@soporte.com" class="underline">aulify@soporte.com</a>.</p>
+				</div>
+			</div>
+		</footer>
+  <dialog id="folder-dialog" aria-labelledby="folder-dialog-title">
+    <form id="folder-form"><h2 id="folder-dialog-title">Nueva carpeta</h2><label for="folder-input">Nombre de la carpeta</label><input id="folder-input" required placeholder="Por ejemplo, Matemática" /><label for="folder-detail">Descripción</label><textarea id="folder-detail" rows="3" placeholder="Organizá tus apuntes por materia o tema"></textarea><p id="folder-error" role="alert"></p><div class="dialog-actions"><button id="cancel-folder" type="button">Cancelar</button><button class="primary" type="submit">Guardar carpeta</button></div></form>
+  </dialog>
+  <dialog id="delete-dialog" aria-labelledby="delete-title"><form id="delete-form"><h2 id="delete-title">Eliminar</h2><p id="delete-description"></p><p id="delete-error" role="alert"></p><div class="dialog-actions"><button id="cancel-delete" type="button">Cancelar</button><button class="danger" type="submit">Eliminar</button></div></form></dialog>
+</body>
+</html>

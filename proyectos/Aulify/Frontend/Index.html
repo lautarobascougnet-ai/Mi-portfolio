@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="es" class="text-[100%] lg:text-[81.25%]">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="aulify-icon.svg" />
+		<script src="https://cdn.tailwindcss.com"></script>
+		<title>Aulify</title>
+			<!-- Configuración de la app instalable. -->
+		<link rel="manifest" href="../porteo/manifest.webmanifest" />
+		<link rel="apple-touch-icon" href="../porteo/icons/apple-touch-icon.png" />
+		<meta name="theme-color" content="#626780" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-title" content="Aulify" />
+		<script src="../porteo/js/pwa.js" defer></script>
+	</head>
+	<body
+		class="text-[calc(1rem+2px)] [overflow-wrap:anywhere] [&_input]:min-w-0 [&_input]:max-w-full [&_select]:max-w-full min-h-screen overflow-x-hidden bg-[#626780] text-[#12192f] antialiased flex min-h-screen flex-col !pb-0 [&[hidden]]:!hidden [&>main]:w-full [&>header]:w-full"
+	>
+		<div class="relative isolate min-h-screen">
+			<div
+				class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[35rem] overflow-hidden bg-[#626780]"
+			>
+				<div
+					class="absolute -right-24 -top-40 h-[26.875rem] w-[26.875rem] rounded-full border-[4.375rem] border-[#a8e6a1]/35"
+				></div>
+				<div
+					class="absolute left-[-11.25rem] top-[16.875rem] h-[20.625rem] w-[20.625rem] rounded-full border border-[#a8e6a1]/30 sm:left-[-5.625rem]"
+				></div>
+			</div>
+
+			<header
+				class="fixed inset-x-0 top-0 z-50 border-b border-[#eef0f2]/25 bg-[#626780]/90 backdrop-blur-md"
+			>
+				<div
+					class="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-6 lg:px-8"
+				>
+					<a
+						href="#inicio"
+						class="flex items-center gap-3 text-[calc(1.125rem+2px)] font-semibold tracking-tight"
+					>
+						<img
+							src="aulify-icon.svg"
+							alt="Logo de Aulify"
+							class="h-9 w-9 rounded-full object-cover shadow-[0_8px_20px_rgba(21,154,197,0.22)]"
+						/>
+						<span class="font-[Georgia] text-[calc(1.5rem+2px)] font-normal uppercase tracking-[-0.05em] !text-[#eef0f2]">Aulify</span>
+					</a>
+					<!-- Acceso disponible en PC, navegador móvil y app Android. -->
+					<div class="flex flex-wrap items-center gap-2 sm:gap-3">
+						<a
+							href="login.html"
+							class="inline-flex min-h-11 items-center rounded-lg border border-[#eef0f2]/40 px-3 py-2 text-[calc(.875rem+2px)] font-medium text-[#eef0f2] transition-colors hover:border-[#a8e6a1] hover:text-[#a8e6a1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+							>Iniciar sesión</a
+						>
+						<a
+							href="registro.html"
+							class="inline-flex min-h-11 items-center rounded-lg bg-[#12192f] px-4 py-2.5 text-[calc(.875rem+2px)] font-medium text-[#eef0f2] transition-transform hover:-translate-y-0.5 hover:bg-[#a8e6a1] hover:text-[#12192f]"
+							>Registrarme</a
+						>
+					</div>
+				</div>
+			</header>
+
+			<main
+				id="inicio"
+				class="mx-auto max-w-6xl px-6 pb-20 pt-40 sm:pt-28 lg:px-8 lg:pt-36"
+			>
+				<section class="mx-auto max-w-3xl text-center">
+					<div
+						class="mb-6 inline-flex items-center gap-2 rounded-full border border-[#a8e6a1]/50 bg-[#dce9f3] px-3 py-1.5 text-[calc(.75rem+2px)] font-semibold uppercase tracking-[0.18em] text-[#171c24] text-[#171c24]      [&_h2]:text-[#171c24] [&_h3]:text-[#171c24] [&_p]:text-[#52616b] [&_span]:text-[#171c24] [&_a]:text-[#06165e]"
+					>
+						<span class="h-1.5 w-1.5 rounded-full bg-[#a8e6a1]"></span>Aprender,
+						a tu manera
+					</div>
+					<h1
+						class="text-[calc(3rem+2px)] font-semibold leading-[1.05] tracking-[-0.04em] text-[#12192f] sm:text-[calc(3.75rem+2px)] lg:text-[calc(4.5rem+2px)]"
+					>
+						Encuentra a quien te ayude a
+						<span class="text-[#a8e6a1]">llegar más lejos.</span>
+					</h1>
+					<p
+						class="mx-auto mt-7 max-w-xl text-[calc(1rem+2px)] leading-7 text-[#eef0f2]/90 sm:text-[calc(1.125rem+2px)]"
+					>
+						Profesores particulares que entienden tus objetivos, explican con
+						claridad y convierten cada duda en un paso adelante.
+					</p>
+				</section>
+
+				<section class="mx-auto mt-16 max-w-5xl">
+					<article
+						class="grid overflow-hidden rounded-2xl border border-[#eef0f2]/30 bg-[#dce9f3] shadow-[0_18px_40px_rgba(18,25,47,0.22)] md:grid-cols-2 text-[#171c24]      [&_h2]:text-[#171c24] [&_h3]:text-[#171c24] [&_p]:text-[#52616b] [&_span]:text-[#171c24] [&_a]:text-[#06165e]"
+					>
+						<div class="min-h-[17.5rem] bg-[#dce9f3] md:min-h-[21.25rem] text-[#171c24]      [&_h2]:text-[#171c24] [&_h3]:text-[#171c24] [&_p]:text-[#52616b] [&_span]:text-[#171c24] [&_a]:text-[#06165e]">
+							<img
+								src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1200&q=85"
+								alt="Estudiante aprendiendo en una biblioteca"
+								class="h-full w-full object-cover"
+							/>
+						</div>
+						<div class="flex flex-col justify-between p-8 sm:p-10">
+							<div>
+								<p
+									class="text-[calc(.75rem+2px)] font-semibold uppercase tracking-[0.16em] text-[#159ac5]"
+								>
+									Tu próximo paso
+								</p>
+								<h2
+									class="mt-4 max-w-sm text-[calc(1.875rem+2px)] font-semibold leading-tight tracking-tight text-[#17212b] sm:text-[calc(2.25rem+2px)]"
+								>
+									Aprende a tu ritmo
+								</h2>
+								<p class="mt-4 max-w-md text-[calc(.875rem+2px)] leading-6 text-[#68747a]">
+									Accede a clases personalizadas y conecta con profesores que
+									entienden tus objetivos. Encuentra el acompañamiento que
+									necesitas para avanzar.
+								</p>
+							</div>
+							<div class="mt-8 flex items-center justify-between gap-4">
+								<a
+									href="registro.html"
+									class="rounded-lg bg-[#06165e] px-4 py-2.5 text-[calc(.75rem+2px)] font-semibold !text-white transition-colors hover:bg-[#142b7a]"
+									>Empezar ahora</a
+								>
+							</div>
+						</div>
+					</article>
+				</section>
+
+				<section id="especialidades" class="mx-auto mt-20 max-w-5xl">
+					<div
+						class="mb-5 flex items-end justify-between border-b border-[#d6d1c7] pb-4"
+					>
+						<div>
+							<p
+								class="text-[calc(.75rem+2px)] font-semibold uppercase tracking-[0.16em] text-[#159ac5]"
+							>
+								Tu próximo paso
+							</p>
+							<h2 class="mt-2 text-[calc(1.5rem+2px)] font-semibold tracking-tight">
+								Aprende algo que te mueva
+							</h2>
+						</div>
+						<span class="hidden text-[calc(.875rem+2px)] text-[#7a8588] sm:block"
+							>Explora por materia</span
+						>
+					</div>
+					<div class="grid gap-4 md:grid-cols-3">
+						<article
+							class="group rounded-2xl border border-[#bacbd8] bg-[#dce9f3] p-6 transition-all hover:-translate-y-1 hover:border-[#159ac5] hover:shadow-[0_16px_35px_rgba(23,33,43,0.08)] text-[#171c24]      [&_h2]:text-[#171c24] [&_h3]:text-[#171c24] [&_p]:text-[#52616b] [&_span]:text-[#171c24] [&_a]:text-[#06165e]"
+						>
+							<div class="flex items-start justify-between">
+								<span class="text-[calc(1.875rem+2px)]">∑</span
+								><span class="text-[calc(.75rem+2px)] font-medium text-[#8a9494]">01</span>
+							</div>
+							<h3 class="mt-12 text-[calc(1.25rem+2px)] font-semibold">Ciencias exactas</h3>
+							<p class="mt-2 text-[calc(.875rem+2px)] leading-6 text-[#68747a]">
+								Matemáticas, física y química explicadas paso a paso.
+							</p>
+							<a
+								href="login.html"
+								class="mt-7 inline-flex items-center gap-2 text-[calc(.875rem+2px)] font-semibold text-[#159ac5]"
+								>Ver profesores
+								<span class="transition-transform group-hover:translate-x-1"
+									>→</span
+								></a
+							>
+						</article>
+						<article
+							class="group rounded-2xl border border-[#bacbd8] bg-[#dce9f3] p-6 transition-all hover:-translate-y-1 hover:border-[#159ac5] hover:shadow-[0_16px_35px_rgba(23,33,43,0.08)] text-[#171c24]      [&_h2]:text-[#171c24] [&_h3]:text-[#171c24] [&_p]:text-[#52616b] [&_span]:text-[#171c24] [&_a]:text-[#06165e]"
+						>
+							<div class="flex items-start justify-between">
+								<span class="text-[calc(1.875rem+2px)]">文</span
+								><span class="text-[calc(.75rem+2px)] font-medium text-[#8a9494]">02</span>
+							</div>
+							<h3 class="mt-12 text-[calc(1.25rem+2px)] font-semibold">Idiomas</h3>
+							<p class="mt-2 text-[calc(.875rem+2px)] leading-6 text-[#68747a]">
+								Practica conversación y gana confianza para comunicarte.
+							</p>
+							<a
+								href="login.html"
+								class="mt-7 inline-flex items-center gap-2 text-[calc(.875rem+2px)] font-semibold text-[#159ac5]"
+								>Ver profesores
+								<span class="transition-transform group-hover:translate-x-1"
+									>→</span
+								></a
+							>
+						</article>
+						<article
+							class="group rounded-2xl border border-[#bacbd8] bg-[#dce9f3] p-6 transition-all hover:-translate-y-1 hover:border-[#159ac5] hover:shadow-[0_16px_35px_rgba(23,33,43,0.08)] text-[#171c24]      [&_h2]:text-[#171c24] [&_h3]:text-[#171c24] [&_p]:text-[#52616b] [&_span]:text-[#171c24] [&_a]:text-[#06165e]"
+						>
+							<div class="flex items-start justify-between">
+								<span class="text-[calc(1.875rem+2px)]">⌘</span
+								><span class="text-[calc(.75rem+2px)] font-medium text-[#8a9494]">03</span>
+							</div>
+							<h3 class="mt-12 text-[calc(1.25rem+2px)] font-semibold">Habilidades</h3>
+							<p class="mt-2 text-[calc(.875rem+2px)] leading-6 text-[#68747a]">
+								Desarrolla tus talentos con acompañamiento personalizado.
+							</p>
+							<a
+								href="login.html"
+								class="mt-7 inline-flex items-center gap-2 text-[calc(.875rem+2px)] font-semibold text-[#159ac5]"
+								>Ver profesores
+								<span class="transition-transform group-hover:translate-x-1"
+									>→</span
+								></a
+							>
+						</article>
+					</div>
+				</section>
+							<!-- Instalación en teléfonos compatibles. -->
+				<section class="mx-auto mt-8 max-w-xl text-center">
+					<button id="install-app" type="button" hidden class="rounded-lg bg-[#06165e] px-5 py-3 font-semibold text-white">Instalar Aulify</button>
+					<p id="install-help" hidden class="mt-3 text-[calc(.875rem+2px)] text-white"></p>
+				</section>
+				<!-- Clases publicadas por profesores aprobados. -->
+				<section class="mx-auto max-w-6xl px-6 py-12" aria-labelledby="public-class-title">
+					<h2 id="public-class-title" class="text-[calc(1.875rem+2px)] font-semibold text-white">Clases publicadas</h2>
+					<label class="mt-6 block text-white">Materia<select id="public-class-filter" class="ml-3 max-w-full rounded-lg bg-black p-3 text-white"><option value="">Todas las materias</option></select></label>
+					<p id="catalog-feedback" role="status" class="mt-4 text-white">Cargando clases…</p>
+					<div id="public-class-list" class="mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-3 [&_[hidden]]:!hidden"></div>
+				</section>
+			</main>
+			<script src="js/catalogo-clases.js?v=20261014"></script>
+		</div>
+		<!-- Pie de página al final del contenido, sin superponerse a la pantalla. -->
+<footer class="!static mt-auto w-full shrink-0 !block !h-auto !p-0 bg-gradient-to-b from-[#626780] via-[#484d63] to-[#171923] text-[#bfc0ca] [&>div>div>p]:!m-0 [&>div>div>p]:!text-[calc(0.6875rem+2px)] [&>div>div>p]:!leading-snug">
+			<div class="mx-auto flex min-h-52 max-w-7xl flex-col justify-between gap-6 px-6 py-6 sm:min-h-44">
+				<div class="flex flex-wrap items-center justify-between gap-3">
+					<a href="Index.html" class="flex items-center gap-2 text-white [@media(max-height:600px)]:hidden"><img src="aulify-icon.svg" alt="" class="h-8 w-8" /><span class="font-[Georgia] text-[calc(1.5rem+2px)] uppercase">Aulify</span></a>
+					<nav aria-label="Enlaces del pie de página" class="flex flex-wrap gap-4 text-[calc(.75rem+2px)]"><a href="Index.html" class="hover:underline">Inicio</a><a href="login.html" class="hover:underline">Mis clases</a></nav>
+				</div>
+				<div class="flex flex-col gap-2 text-[calc(0.6875rem+2px)] leading-snug">
+					<p>© 2026 Aulify. Todos los derechos reservados.</p>
+					<p>Si tiene algún problema con la página, escriba a <a href="mailto:aulify@soporte.com" class="underline">aulify@soporte.com</a>.</p>
+				</div>
+			</div>
+		</footer>
+	</body>
+</html>

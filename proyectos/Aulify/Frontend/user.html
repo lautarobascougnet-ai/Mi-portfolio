@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="es" class="text-[100%] lg:text-[81.25%]">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="aulify-icon.svg" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script src="js/api.js?v=20261014"></script>
+		<title>Perfil | Aulify</title>
+			<!-- Configuración de la app instalable. -->
+		<link rel="manifest" href="../porteo/manifest.webmanifest" />
+		<link rel="apple-touch-icon" href="../porteo/icons/apple-touch-icon.png" />
+		<meta name="theme-color" content="#626780" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-title" content="Aulify" />
+		<script src="../porteo/js/pwa.js" defer></script>
+	</head>
+	<body hidden data-private-page
+		class="text-[calc(1rem+2px)] [&_[hidden]]:!hidden [overflow-wrap:anywhere] [&_input]:min-w-0 [&_input]:max-w-full [&_select]:max-w-full min-h-screen bg-[#626780] font-['Space_Grotesk'] text-[#12192f] antialiased flex min-h-screen flex-col !pb-0 [&[hidden]]:!hidden [&>main]:w-full [&>header]:w-full"
+	>
+		<!-- Navegacion principal y acceso al inicio. -->
+		<header
+			class="fixed inset-x-0 top-0 z-50 bg-[#626780]/95 backdrop-blur-md"
+		>
+			<div
+				class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8"
+			>
+				<a
+					href="home.html"
+					class="flex items-center gap-3 text-[calc(1.125rem+2px)] font-semibold tracking-tight"
+				>
+					<img
+						src="aulify-icon.svg"
+						alt="Logo de Aulify"
+						class="h-10 w-10 rounded-full object-cover shadow-[0_8px_20px_rgba(21,154,197,0.22)]"
+					/>
+					<span class="font-[Georgia] text-[calc(1.5rem+2px)] font-normal uppercase tracking-[-0.05em] !text-[#eef0f2]">Aulify</span>
+				</a>
+				<a
+					href="home.html"
+					class="text-[calc(.875rem+2px)] font-medium text-[#FFFFFF] transition-colors hover:text-[#a8e6a1]"
+					>← Volver al inicio</a
+				>
+			</div>
+		</header>
+
+		<main class="mx-auto max-w-5xl px-6 pb-16 pt-28 sm:px-10">
+			<!-- Resumen visible del perfil. -->
+			<section
+				class="flex flex-col gap-6 py-10 sm:flex-row sm:items-center sm:justify-between"
+			>
+				<div class="flex min-w-0 items-center gap-5">
+					<div
+						id="avatar"
+						class="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-full border border-white/70 text-white"
+					>
+						<svg viewBox="0 0 80 80" class="h-full w-full" fill="none" stroke="currentColor" stroke-width="0.8" aria-label="Perfil de usuario" role="img"><circle cx="40" cy="29" r="13" /><path d="M14 70c3-24 49-24 52 0" /></svg>
+					</div>
+					<div>
+						<p id="profile-role" class="text-[calc(.875rem+2px)] text-white">Alumno</p>
+						<h1 id="profile-name" class="mt-2 text-[calc(1rem+2px)] font-normal text-[#FFFFFF]">
+							Usuario
+						</h1>
+					</div>
+				</div>
+				<button
+					id="edit-profile-button"
+					type="button"
+					aria-expanded="false"
+					aria-controls="profile-editor"
+					class="rounded-full bg-[#dce9f3] px-5 py-2.5 text-[calc(.75rem+2px)] font-medium uppercase text-[#171c24] transition hover:bg-[#dce9f3] focus-visible:ring-2 focus-visible:ring-white text-[#171c24]      [&_h2]:text-[#171c24] [&_h3]:text-[#171c24] [&_p]:text-[#52616b] [&_span]:text-[#171c24] [&_a]:text-[#06165e]"
+				>
+					Editar perfil
+				</button>
+			</section>
+
+			<!-- Formulario desplegable para editar los datos del perfil. -->
+			<section
+				id="profile-editor"
+				class="hidden rounded-2xl bg-[#dce9f3] p-6 shadow-[0_18px_45px_rgba(23,33,43,0.12)] sm:p-8 text-[#171c24]      [&_h2]:text-[#171c24] [&_h3]:text-[#171c24] [&_p]:text-[#52616b] [&_span]:text-[#171c24] [&_a]:text-[#06165e]"
+			>
+				<div class="mb-5 flex items-center justify-between gap-4">
+					<div>
+						<h2 class="text-[calc(1.25rem+2px)] font-semibold">Editar perfil</h2>
+						<p class="mt-1 text-[calc(.875rem+2px)] text-[#68747a]">
+							Completa solo la información que quieras mostrar.
+						</p>
+					</div>
+					<button
+						id="close-editor"
+						type="button"
+						class="text-[calc(.875rem+2px)] font-semibold text-[#159ac5] hover:text-[#127d9f]"
+					>
+						Cerrar
+					</button>
+				</div>
+				<p
+					id="feedback"
+					class="mb-5 hidden rounded-lg border px-4 py-3 text-[calc(.875rem+2px)]"
+				></p>
+
+				<!-- Formulario de datos personales. -->
+				<form id="profile-form" class="max-w-3xl space-y-5">
+						<!-- Datos básicos compartidos por alumnos y profesores. -->
+						<div class="grid gap-5 md:grid-cols-2">
+							<label class="block text-[calc(.875rem+2px)] font-medium">Nombre<input id="first-name" name="nombre" required maxlength="100" autocomplete="given-name" class="mt-2 block w-full rounded-lg border border-[#bacbd8] bg-[#f5f7fa] px-4 py-3 text-[#171c24] outline-none focus:ring-2 focus:ring-[#06165e]/30" /></label>
+							<label class="block text-[calc(.875rem+2px)] font-medium">Apellido<input id="last-name" name="apellido" required maxlength="100" autocomplete="family-name" class="mt-2 block w-full rounded-lg border border-[#bacbd8] bg-[#f5f7fa] px-4 py-3 text-[#171c24] outline-none focus:ring-2 focus:ring-[#06165e]/30" /></label>
+						</div>
+						<label class="block text-[calc(.875rem+2px)] font-medium">Email<input id="email" name="email" type="email" required autocomplete="email" class="mt-2 block w-full rounded-lg border border-[#bacbd8] bg-[#f5f7fa] px-4 py-3 text-[#171c24] outline-none focus:ring-2 focus:ring-[#06165e]/30" /></label>
+						<label class="block text-[calc(.875rem+2px)] font-medium">Foto de perfil<input id="photo" name="photo" type="file" accept="image/jpeg,image/png,image/webp" class="mt-2 block w-full text-[calc(.875rem+2px)] file:rounded-lg file:border-0 file:bg-[#06165e] file:px-3 file:py-2 file:text-white" /></label>
+						<p class="text-[calc(.75rem+2px)] text-[#52616b]">La calificación se muestra en el perfil y no puede editarse manualmente.</p>
+						<!-- Información profesional: solo habilitada tras la aprobación. -->
+						<fieldset data-teacher-only hidden disabled class="space-y-5">
+							<legend class="mb-3 text-[calc(1rem+2px)] font-semibold">Información del profesor</legend>
+							<label class="block text-[calc(.875rem+2px)] font-medium">Experiencia<textarea id="experience" rows="3" maxlength="4000" class="mt-2 block w-full rounded-lg border border-[#bacbd8] bg-[#f5f7fa] px-4 py-3 text-[#171c24] outline-none focus:ring-2 focus:ring-[#06165e]/30"></textarea></label>
+							<label class="block text-[calc(.875rem+2px)] font-medium">Títulos<textarea id="titles" rows="3" maxlength="4000" class="mt-2 block w-full rounded-lg border border-[#bacbd8] bg-[#f5f7fa] px-4 py-3 text-[#171c24] outline-none focus:ring-2 focus:ring-[#06165e]/30"></textarea></label>
+							<label class="block text-[calc(.875rem+2px)] font-medium">Fotos de experiencia o títulos<input id="experience-photos" type="file" accept="image/jpeg,image/png,image/webp" multiple class="mt-2 block w-full text-[calc(.875rem+2px)] file:rounded-lg file:border-0 file:bg-[#06165e] file:px-3 file:py-2 file:text-white" /></label>
+							<label class="block text-[calc(.875rem+2px)] font-medium">Descripción<textarea id="description" rows="3" maxlength="4000" class="mt-2 block w-full rounded-lg border border-[#bacbd8] bg-[#f5f7fa] px-4 py-3 text-[#171c24] outline-none focus:ring-2 focus:ring-[#06165e]/30"></textarea></label>
+						</fieldset>
+						<button id="save-profile-button" type="submit" class="rounded-lg bg-[#06165e] px-5 py-3 text-[calc(.875rem+2px)] font-semibold text-white hover:bg-[#142b7a] disabled:opacity-50">Guardar</button>
+					</form>
+			</section>
+
+			<!-- Datos publicos del perfil. -->
+			<section class="mt-5 grid gap-5 md:grid-cols-2 md:gap-10 lg:gap-28">
+				<article class="rounded-xl bg-[#dce9f3] p-5 text-[#171c24]      [&_h2]:text-[#171c24] [&_h3]:text-[#171c24] [&_p]:text-[#52616b] [&_span]:text-[#171c24] [&_a]:text-[#06165e]">
+					<h2 class="text-[calc(.875rem+2px)] font-semibold">Email</h2>
+					<p id="profile-email" class="mt-3 text-[calc(.875rem+2px)] text-[#52616b]"></p>
+				</article>
+				<article class="rounded-xl bg-[#dce9f3] p-5 text-[#171c24]      [&_h2]:text-[#171c24] [&_h3]:text-[#171c24] [&_p]:text-[#52616b] [&_span]:text-[#171c24] [&_a]:text-[#06165e]">
+					<h2 class="text-[calc(.875rem+2px)] font-semibold">Calificación</h2>
+					<div id="profile-rating" class="mt-2 flex flex-wrap items-center gap-2">
+						<span class="text-[calc(1.5rem+2px)] tracking-widest text-[#f28b27]">☆</span>
+						<span class="text-[calc(.75rem+2px)] text-[#52616b]">Sin calificación</span>
+					</div>
+				</article>
+			</section>
+
+			<!-- Experiencia, titulos y galeria del perfil. -->
+			<section
+				data-teacher-only hidden class="mt-5 min-h-36 rounded-xl bg-[#dce9f3] p-6 sm:p-8 text-[#171c24]      [&_h2]:text-[#171c24] [&_h3]:text-[#171c24] [&_p]:text-[#52616b] [&_span]:text-[#171c24] [&_a]:text-[#06165e]"
+			>
+				<h2 class="text-[calc(.875rem+2px)] font-semibold">Experiencia o títulos</h2>
+				<p
+					id="profile-experience"
+					class="mt-7 whitespace-pre-line text-center text-[calc(1rem+2px)] text-[#52616b] sm:text-[calc(1.125rem+2px)]"
+				></p>
+				<h3 id="titles-heading" class="mt-7 hidden text-[calc(.875rem+2px)] font-semibold">
+					Títulos
+				</h3>
+				<p
+					id="profile-titles"
+					class="mt-2 hidden whitespace-pre-line text-[calc(.875rem+2px)] leading-6 text-[#52616b]"
+				></p>
+				<div
+					id="experience-gallery"
+					class="mt-5 hidden grid gap-3 sm:grid-cols-3"
+				></div>
+			</section>
+
+			<!-- Descripcion publica. -->
+			<section data-teacher-only hidden class="mt-3 min-h-52 rounded-xl bg-[#dce9f3] p-6 sm:p-8 text-[#171c24]      [&_h2]:text-[#171c24] [&_h3]:text-[#171c24] [&_p]:text-[#52616b] [&_span]:text-[#171c24] [&_a]:text-[#06165e]">
+				<h2 class="text-[calc(.875rem+2px)] font-semibold">Descripción</h2>
+				<p
+					id="profile-description"
+					class="py-10 whitespace-pre-line text-center text-[calc(1.5rem+2px)] text-[#52616b]"
+				></p>
+			</section>
+		</main>
+
+		<!-- Pie de página al final del contenido, sin superponerse a la pantalla. -->
+<footer class="!static mt-auto w-full shrink-0 !block !h-auto !p-0 bg-gradient-to-b from-[#626780] via-[#484d63] to-[#171923] text-[#bfc0ca] [&>div>div>p]:!m-0 [&>div>div>p]:!text-[calc(0.6875rem+2px)] [&>div>div>p]:!leading-snug">
+			<div class="mx-auto flex min-h-52 max-w-7xl flex-col justify-between gap-6 px-6 py-6 sm:min-h-44">
+				<div class="flex flex-wrap items-center justify-between gap-3">
+					<a href="home.html" class="flex items-center gap-2 text-white [@media(max-height:600px)]:hidden"><img src="aulify-icon.svg" alt="" class="h-8 w-8" /><span class="font-[Georgia] text-[calc(1.5rem+2px)] uppercase">Aulify</span></a>
+					<nav aria-label="Enlaces del pie de página" class="flex flex-wrap gap-4 text-[calc(.75rem+2px)]"><a href="home.html" class="hover:underline">Inicio</a><a href="misclases.html" class="hover:underline">Mis clases</a></nav>
+				</div>
+				<div class="flex flex-col gap-2 text-[calc(0.6875rem+2px)] leading-snug">
+					<p>© 2026 Aulify. Todos los derechos reservados.</p>
+					<p>Si tiene algún problema con la página, escriba a <a href="mailto:aulify@soporte.com" class="underline">aulify@soporte.com</a>.</p>
+				</div>
+			</div>
+		</footer>
+
+		<!-- Logica del perfil separada del HTML y comunicada con la API REST. -->
+		<script src="js/user.js?v=20261014"></script>
+	</body>
+</html>

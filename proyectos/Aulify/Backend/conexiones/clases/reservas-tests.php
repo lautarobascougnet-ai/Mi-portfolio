@@ -1,0 +1,63 @@
+<?php
+// Todo ocurre en las tablas temporales preparadas por tests.php.
+require __DIR__ . '/tests.php';
+$app = \Slim\Factory\AppFactory::create();
+require __DIR__ . '/routes.php';
+require __DIR__ . '/reservas-routes.php';
+$conexion->query("UPDATE solicitudes_profesor SET estado='aprobada' WHERE usuario_id=2");
+$date = (new DateTimeImmutable('tomorrow', new DateTimeZone('America/Argentina/Buenos_Aires')))->modify('next monday')->format('Y-m-d');
+function bookingCall($method, $path, $body = [], $csrf = true) {
+    global $app;
+    $parts = parse_url($path); parse_str($parts['query'] ?? '', $query);
+    $request = (new \Slim\Psr7\Factory\ServerRequestFactory())->createServerRequest($method, $parts['path'])->withQueryParams($query)->withParsedBody($body);
+    if ($csrf) $request = $request->withHeader('X-CSRF-Token', $_SESSION['classes_csrf'] ?? '');
+    return $app->handle($request);
+}
+function bookingData($response) { return json_decode((string) $response->getBody(), true); }
+$_SESSION = [];
+check(bookingCall('POST', '/bookings', [])->getStatusCode() === 401, 'Reserva requiere sesión');
+$profile = bookingData(bookingCall('GET', '/teachers/profile?id=2'));
+check(isset($profile['teacher']) && !isset($profile['teacher']['email']) && !isset($profile['teacher']['password_hash']), 'Perfil público sin datos privados');
+$_SESSION = ['usuario_id' => 1];
+$availability = bookingData(bookingCall('GET', '/classes/availability?id=1&date=' . $date));
+check(count($availability['slots']) === 8 && $availability['slots'][0]['available'], 'Turnos de una hora en franjas del profesor');
+$body = ['class_id' => 1, 'inicio' => $date . ' 08:30:00'];
+check(bookingCall('POST', '/bookings', $body, false)->getStatusCode() === 403, 'Reserva con CSRF');
+check(bookingCall('POST', '/bookings', ['class_id' => 1, 'inicio' => $date . ' 08:00:00'])->getStatusCode() === 422, 'No permite horario inventado');
+$booked = bookingCall('POST', '/bookings', $body);
+check($booked->getStatusCode() === 201, 'Reserva persistida');
+$bookingId = bookingData($booked)['id'];
+check($conexion->execute_query('SELECT moneda FROM aulify_reservas WHERE id=?', [$bookingId])->fetch_assoc()['moneda'] === 'USD', 'Reserva conserva la moneda elegida para la clase');
+check(bookingData(bookingCall('GET', '/bookings/detail?id=' . $bookingId))['booking']['moneda'] === 'USD', 'Detalle de reserva expone su moneda');
+check(bookingCall('POST', '/bookings', $body)->getStatusCode() === 409, 'No permite duplicar reserva');
+check(count(bookingData(bookingCall('GET', '/classes/mine'))['scheduled']) === 1, 'Alumno ve su reserva');
+check(!bookingData(bookingCall('GET', '/classes/availability?id=1&date=' . $date))['slots'][0]['available'], 'Horario ocupado');
+$_SESSION['usuario_id'] = 2;
+check(count(bookingData(bookingCall('GET', '/classes/mine'))['scheduled']) === 1, 'Profesor ve su reserva');
+check(bookingCall('POST', '/bookings', $body)->getStatusCode() === 422, 'No reserva su propia clase');
+$_SESSION['usuario_id'] = 3;
+check(!bookingData(bookingCall('GET', '/classes/mine'))['scheduled'], 'Tercero no ve reservas ajenas');
+check(bookingCall('POST', '/bookings/cancel', ['id' => $bookingId])->getStatusCode() === 404, 'Tercero no cancela reservas ajenas');
+check(bookingCall('POST', '/bookings', $body)->getStatusCode() === 409, 'Otro alumno no ocupa el turno reservado');
+$schedule = json_encode(['timezone'=>'America/Argentina/Buenos_Aires','weekly'=>[1=>[['start'=>'08:45','end'=>'12:45']]],'exceptions'=>(object)[]]);
+$conexion->execute_query("INSERT INTO aulify_clases (profesor_id,materia,descripcion,precio,modalidad,horarios) VALUES (2,'Otra clase','Descripción de otra clase',10,'virtual',?)", [$schedule]);
+$otherId = $conexion->insert_id;
+check(bookingCall('POST', '/bookings', ['class_id'=>$otherId, 'inicio'=>$date.' 08:45:00'])->getStatusCode() === 409, 'No superpone clases distintas del mismo profesor');
+$conexion->execute_query("INSERT INTO aulify_clases (profesor_id,materia,descripcion,precio,modalidad,horarios) VALUES (3,'Otro profesor','Descripción de otra clase',10,'virtual',?)", [$schedule]);
+$thirdId = $conexion->insert_id;
+$_SESSION['usuario_id'] = 1;
+check(bookingCall('POST', '/bookings', ['class_id'=>$thirdId, 'inicio'=>$date.' 08:45:00'])->getStatusCode() === 409, 'No superpone clases del alumno con distintos profesores');
+check(bookingCall('POST', '/bookings/cancel', ['id' => $bookingId])->getStatusCode() === 200, 'Alumno cancela su reserva');
+check(bookingData(bookingCall('GET', '/classes/availability?id=1&date=' . $date))['slots'][0]['available'], 'Cancelar libera horario');
+check(bookingCall('POST', '/bookings', $body)->getStatusCode() === 201, 'Puede volver a reservar');
+check(aulifyClassSlots(null, $date) === [], 'Sin horarios no inventa turnos');
+check(aulifyBookingDate("2026-01-01\0") === null, 'Fecha malformada segura');
+$edit = ['id'=>1,'materia'=>'Editada','descripcion'=>'Descripción modificada','precio'=>20,'modalidad'=>'virtual','horarios'=>json_decode($schedule,true)];
+$_SESSION['usuario_id']=3;
+check(bookingCall('POST','/classes/update',$edit)->getStatusCode()===403,'No edita clases de otro profesor');
+$_SESSION['usuario_id']=2;
+check(bookingCall('POST','/classes/update',$edit)->getStatusCode()===409,'Cambiar a materia nueva requiere aprobación');
+$conexion->query("UPDATE aulify_materias SET estado='aprobada' WHERE nombre='Editada'");
+check(bookingCall('POST','/classes/update',$edit)->getStatusCode()===200,'Profesor edita su clase');
+check(count(array_filter(bookingData(bookingCall('GET','/classes/mine'))['scheduled'], fn($r) => $r['estado'] === 'pendiente'))===1,'Editar conserva la solicitud vigente y su historial');
+echo "$checks verificaciones acumuladas de clases y reservas correctas; sin datos reales.\n";

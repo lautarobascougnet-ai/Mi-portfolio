@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es" class="text-[100%] lg:text-[81.25%]">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Crear clase | Aulify</title>
+		<link rel="icon" href="aulify-icon.svg" type="image/svg+xml" />
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script src="js/api.js?v=20261014" defer></script>
+		<script src="js/crearclase.js?v=20261014" defer></script>
+		<script src="../porteo/js/pwa.js" defer></script>
+	</head>
+	<body hidden data-private-page class="text-[calc(1rem+2px)] min-h-screen bg-[#626780] text-[#171c24] [&_[hidden]]:!hidden [overflow-wrap:anywhere] flex min-h-screen flex-col !pb-0 [&[hidden]]:!hidden [&>main]:w-full [&>header]:w-full">
+		<header class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-6 text-white">
+			<a href="home.html" class="flex items-center gap-3"><img src="aulify-icon.svg" alt="" class="h-9 w-9" /><span class="font-[Georgia] text-[calc(1.5rem+2px)] uppercase">Aulify</span></a>
+			<a href="misclases.html" class="text-[calc(.875rem+2px)]">← Volver atrás</a>
+		</header>
+		<main class="mx-auto max-w-5xl px-5 py-5">
+			<p id="create-feedback" role="status" aria-live="polite" class="mb-5 text-white">Comprobando acceso…</p>
+			<form id="create-class" hidden class="space-y-7">
+				<!-- Perfil del profesor: solo usuarios con solicitud aprobada. -->
+				<div class="flex items-center gap-4 text-white"><img id="class-avatar" src="aulify-icon.svg" alt="Foto del profesor" class="h-16 w-16 rounded-full border border-white/60 object-cover" /><div><p class="text-[calc(.875rem+2px)]">Profesor</p><p id="class-professor" class="mt-1 font-semibold"></p></div><h1 class="ml-auto text-[calc(1.25rem+2px)] font-semibold">Crear clase</h1></div>
+				<!-- Información de la clase. -->
+				<p class="text-[calc(.875rem+2px)] text-white">Una materia nueva se envía a revisión al intentar crear la clase. No se publicará hasta que el administrador la apruebe y vuelvas a enviar el formulario.</p>
+				<div class="grid gap-6 sm:grid-cols-2 sm:gap-16">
+					<div class="rounded-xl bg-[#dce9f3] p-3 text-[calc(.875rem+2px)] font-semibold shadow-sm"><label for="class-currency">MONEDA</label><select id="class-currency" name="moneda" required class="mt-2 w-full rounded-lg bg-white p-3 font-normal"><option value="ARS">Pesos argentinos (ARS)</option><option value="USD">Dólares estadounidenses (USD)</option><option value="EUR">Euros (EUR)</option></select><label for="class-price" class="mt-3 block">PRECIO POR HORA</label><input id="class-price" name="precio" type="number" required min="0" max="100000" step="0.01" placeholder="0.00" class="mt-2 w-full min-w-0 rounded-lg bg-white p-3 font-normal" /></div>
+					<label class="rounded-xl bg-[#dce9f3] p-3 text-[calc(.875rem+2px)] font-semibold shadow-sm">MATERIA<select name="materia" required class="mt-2 w-full min-w-0 rounded-lg bg-white p-3 font-normal"><option value="" selected disabled>Elegí una materia aprobada</option></select></label>
+				</div>
+				<section class="rounded-xl bg-[#dce9f3] p-5">
+					<h2 class="font-semibold">Crear mi materia</h2>
+					<p class="mt-2 text-[calc(.875rem+2px)] text-[#52616b]">Podés proponer una nueva. El administrador debe aprobarla antes de que puedas publicar una clase con ella.</p>
+					<div class="mt-3 flex flex-wrap gap-3"><input id="new-subject-name" maxlength="100" placeholder="Nombre de la nueva materia" class="min-w-0 flex-1 rounded-lg bg-white p-3" /><button id="request-subject" type="button" class="rounded-lg bg-[#06165e] px-4 py-3 text-[calc(.875rem+2px)] text-white">Solicitar aprobación</button></div>
+					<p id="subject-request-feedback" class="mt-2 text-[calc(.875rem+2px)]" role="status" aria-live="polite"></p>
+				</section>
+				<label class="block rounded-xl bg-[#dce9f3] p-3 text-[calc(.875rem+2px)] font-semibold">Descripción de la clase<textarea name="descripcion" required minlength="10" maxlength="2000" rows="3" placeholder="Contá qué van a aprender" class="mt-2 w-full min-w-0 rounded-lg bg-white p-3 font-normal"></textarea></label>
+				<label class="block text-[calc(.875rem+2px)] text-white">Modalidad<select name="modalidad" class="ml-3 rounded-lg bg-[#dce9f3] p-3 text-[#171c24]"><option value="virtual">Virtual</option><option value="presencial">Presencial</option><option value="ambas">Ambas: presencial o virtual</option></select></label>
+                <label class="block text-[calc(.875rem+2px)] text-white"><input type="checkbox" name="permite_chat" value="1" /> Permitir mensajes en las reservas pagas de esta clase</label><p class="text-[calc(.75rem+2px)] text-white">El chat estará disponible desde el pago hasta que termine o se cancele la reserva. Este ajuste se aplica a las nuevas reservas.</p>
+				<!-- Semana recurrente y plantillas rápidas. -->
+				<section class="rounded-xl bg-[#dce9f3] p-5">
+					<div class="flex flex-wrap items-center justify-between gap-3">
+						<h2 class="text-[calc(1.25rem+2px)] font-semibold">Tu disponibilidad</h2>
+						<button id="schedule-clear" type="button" class="rounded-lg border border-[#bacbd8] bg-white px-4 py-2 text-[calc(.875rem+2px)] font-semibold text-[#06165e] hover:bg-[#f2dede] focus-visible:ring-2 focus-visible:ring-[#06165e]">Restablecer horarios</button>
+					</div>
+					<p class="mt-2 text-[calc(.875rem+2px)] text-[#52616b]">Hora de Argentina (Buenos Aires, UTC−3). La semana se repite; el calendario permite excepciones por fecha. Nada se publica hasta pulsar Crear clase.</p>
+					<!-- Horarios predefinidos: punto de partida opcional. -->
+					<h3 class="mt-6 font-semibold">Horarios predefinidos</h3>
+					<p class="mt-1 text-[calc(.875rem+2px)] text-[#52616b]">Elegí una plantilla para cargar la semana automáticamente. Después podés ajustarla abajo.</p>
+					<div id="schedule-presets" class="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4"></div>
+					<!-- Selección manual: días y franjas personalizados. -->
+					<h3 class="mt-6 border-t border-[#bacbd8] pt-5 font-semibold">Selección manual</h3>
+					<p class="mt-1 text-[calc(.875rem+2px)] text-[#52616b]">Marcá los días, elegí desde y hasta qué hora, y pulsá Agregar. No hace falta elegir una plantilla.</p>
+					<fieldset class="mt-5"><legend class="mb-2 text-[calc(.875rem+2px)] font-semibold">Elegí días de la semana para agregar franjas</legend><div id="weekdays" class="flex flex-wrap gap-2"></div></fieldset>
+					<div class="mt-4 flex flex-wrap items-end gap-3"><label class="text-[calc(.875rem+2px)]">Desde<input id="weekly-start" type="time" value="08:00" class="mt-1 block rounded-lg bg-white p-3" /></label><label class="text-[calc(.875rem+2px)]">Hasta<input id="weekly-end" type="time" value="20:00" class="mt-1 block rounded-lg bg-white p-3" /></label><button id="add-weekly" type="button" class="rounded-lg bg-[#06165e] px-4 py-3 text-[calc(.875rem+2px)] text-white">Agregar a los días marcados</button></div>
+					<div id="weekly-summary" class="mt-4 grid gap-2 sm:grid-cols-2"></div>
+				</section>
+				<!-- Calendario y horario de la fecha seleccionada. -->
+				<section class="grid items-start gap-5 md:grid-cols-[17rem_1fr]">
+					<div class="rounded-xl bg-[#dce9f3] p-4"><div class="flex items-center justify-between gap-2"><button id="previous-month" type="button" aria-label="Mes anterior" class="rounded-lg p-2 disabled:opacity-30">←</button><h2 id="calendar-month" class="text-[calc(.875rem+2px)] font-semibold"></h2><button id="next-month" type="button" aria-label="Mes siguiente" class="rounded-lg p-2 disabled:opacity-30">→</button></div><div class="mt-3 grid grid-cols-7 gap-1 text-center text-[calc(.75rem+2px)]" aria-hidden="true"><span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span></div><div id="schedule-calendar" class="mt-2 grid grid-cols-7 gap-1"></div><p class="mt-3 text-[calc(.75rem+2px)] text-[#52616b]">Elegí una fecha para ajustar sus horarios. Podés configurar hasta un año adelante.</p></div>
+					<div class="min-w-0">
+						<h2 id="selected-date" class="mb-3 text-[calc(1.125rem+2px)] font-semibold text-white"></h2>
+						<div class="mb-4 flex flex-wrap gap-2 text-[calc(.75rem+2px)]"><span class="rounded-lg bg-[#d7eadf] px-3 py-2 text-[#245c42]">Disponible</span><span class="rounded-lg bg-[#f2dede] px-3 py-2 text-[#804747]">No disponible</span><span class="rounded-lg bg-[#f6edc9] px-3 py-2 text-[#705a24]">Ocupado (cuando haya reservas)</span></div>
+						<p class="mb-3 text-[calc(.875rem+2px)] text-white">Cada botón activa o desactiva una hora para esta fecha. Una franja parcial se muestra en verde con su horario exacto debajo.</p>
+						<div id="hour-grid" class="grid grid-cols-3 gap-2 sm:grid-cols-4 lg:grid-cols-6"></div>
+						<div class="mt-4 rounded-xl bg-[#dce9f3] p-4"><p id="date-mode" class="text-[calc(.875rem+2px)] font-semibold"></p><div id="date-ranges" class="mt-3 flex flex-wrap gap-2"></div><div class="mt-4 flex flex-wrap items-end gap-3"><label class="text-[calc(.875rem+2px)]">Desde<input id="date-start" type="time" value="08:30" class="mt-1 block rounded-lg bg-white p-2" /></label><label class="text-[calc(.875rem+2px)]">Hasta<input id="date-end" type="time" value="10:15" class="mt-1 block rounded-lg bg-white p-2" /></label><button id="add-date" type="button" class="rounded-lg bg-[#06165e] px-3 py-2 text-[calc(.875rem+2px)] text-white">Agregar franja a esta fecha</button></div><div class="mt-4 flex flex-wrap gap-3 text-[calc(.875rem+2px)]"><button id="close-date" type="button" class="rounded-lg bg-[#f2dede] px-3 py-2 text-[#804747]">No disponible este día</button><button id="restore-date" type="button" class="rounded-lg border border-[#bacbd8] px-3 py-2">Usar semana habitual</button></div></div>
+					</div>
+				</section>
+				<p id="schedule-feedback" role="status" aria-live="polite" class="text-white"></p>
+				<div class="flex justify-end"><button id="publish-class" class="rounded-full bg-[#06165e] px-8 py-3 text-white disabled:opacity-50">Crear clase</button></div>
+			</form>
+		</main>
+<footer class="!static mt-auto w-full shrink-0 !block !h-auto !p-0 bg-gradient-to-b from-[#626780] via-[#484d63] to-[#171923] text-[#bfc0ca] [&>div>div>p]:!m-0 [&>div>div>p]:!text-[calc(0.6875rem+2px)] [&>div>div>p]:!leading-snug">
+			<div class="mx-auto flex min-h-52 max-w-7xl flex-col justify-between gap-6 px-6 py-6 sm:min-h-44">
+				<div class="flex flex-wrap items-center justify-between gap-3">
+					<a href="home.html" class="flex items-center gap-2 text-white [@media(max-height:600px)]:hidden"><img src="aulify-icon.svg" alt="" class="h-8 w-8" /><span class="font-[Georgia] text-[calc(1.5rem+2px)] uppercase">Aulify</span></a>
+					<nav aria-label="Enlaces del pie de página" class="flex flex-wrap gap-4 text-[calc(.75rem+2px)]"><a href="home.html" class="hover:underline">Inicio</a><a href="misclases.html" class="hover:underline">Mis clases</a></nav>
+				</div>
+				<div class="flex flex-col gap-2 text-[calc(0.6875rem+2px)] leading-snug">
+					<p>© 2026 Aulify. Todos los derechos reservados.</p>
+					<p>Si tiene algún problema con la página, escriba a <a href="mailto:aulify@soporte.com" class="underline">aulify@soporte.com</a>.</p>
+				</div>
+			</div>
+		</footer>
+	</body>
+</html>

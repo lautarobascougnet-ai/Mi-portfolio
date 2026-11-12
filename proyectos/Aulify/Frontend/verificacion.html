@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es" class="text-[100%] lg:text-[81.25%]">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="referrer" content="no-referrer" />
+		<title>Verificar identidad | Aulify</title>
+		<link rel="icon" href="aulify-icon.svg" type="image/svg+xml" />
+		<link rel="manifest" href="../porteo/manifest.webmanifest" />
+		<meta name="theme-color" content="#626780" />
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script src="../porteo/js/pwa.js" defer></script>
+		<script src="js/identidad.js?v=20261014" defer></script>
+		<script src="js/verificacion.js?v=20261014" defer></script>
+	</head>
+	<body class="text-[calc(1rem+2px)] [overflow-wrap:anywhere] [&_input]:min-w-0 [&_input]:max-w-full [&_select]:max-w-full min-h-screen bg-[#626780] text-[#171c24] [&_[hidden]]:!hidden flex min-h-screen flex-col !pb-0 [&[hidden]]:!hidden [&>main]:w-full [&>header]:w-full">
+		<main class="mx-auto flex min-h-screen max-w-lg flex-col justify-center px-6 py-12">
+			<a href="Index.html" class="mb-8 flex items-center justify-center gap-3 font-[Georgia] text-[calc(1.5rem+2px)] text-white"><img src="aulify-icon.svg" alt="" class="h-9 w-9" /> AULIFY</a>
+			<!-- Confirmación antes de abrir el proveedor externo. -->
+			<section class="rounded-2xl bg-[#dce9f3] p-6 shadow-xl" aria-labelledby="verification-title">
+				<h1 id="verification-title" class="text-[calc(1.5rem+2px)] font-semibold">Verificá tu identidad</h1>
+				<p id="verification-status" role="status" aria-live="polite" class="mt-4 text-[calc(.875rem+2px)] leading-6">Comprobando el enlace…</p>
+				<p id="sandbox-notice" hidden class="mt-4 rounded-lg border border-amber-800 bg-amber-50 p-3 text-[calc(.875rem+2px)] text-amber-950">Modo Sandbox: esta es una prueba con datos ficticios. No ingreses tu DNI real; Didit simulará el resultado y Aulify no creará una cuenta.</p>
+				<div id="capture-step" hidden>
+					<p id="account-summary" class="mt-4 rounded-lg border border-[#bacbd8] p-3 text-[calc(.875rem+2px)] break-words"></p>
+					<p class="mt-4 text-[calc(.875rem+2px)] leading-6">Didit te pedirá fotos del DNI argentino y una selfie con prueba de vida. Se abrirá su página segura y, al terminar, volverás a Aulify. Si cancelás o el resultado requiere revisión, no se habilitará la cuenta.</p>
+					<label class="mt-4 flex items-start gap-3 text-[calc(.875rem+2px)] leading-6"><input id="identity-consent" type="checkbox" class="mt-1 h-5 w-5 shrink-0 accent-[#06165e]" /><span>Los datos de esta cuenta son míos y acepto que Didit procese mi DNI y selfie para verificar mi identidad. Aulify no guardará las imágenes. <a href="https://didit.me/terms/verification-privacy-notice/" target="_blank" rel="noopener noreferrer" class="underline">Privacidad de Didit</a>.</span></label>
+					<button id="start-verification" type="button" class="mt-5 w-full rounded-lg bg-[#06165e] px-5 py-3 font-semibold text-white disabled:opacity-50">Continuar en Didit</button>
+				</div>
+				<button id="check-verification" type="button" hidden class="mt-4 w-full rounded-lg bg-[#06165e] px-5 py-3 text-white">Comprobar resultado</button>
+				<button id="cancel-verification" type="button" hidden class="mt-4 w-full rounded-lg border border-[#bacbd8] px-5 py-3 text-[calc(.875rem+2px)]">Cancelar registro</button>
+				<a id="go-login" href="login.html?registro=ok" hidden class="mt-4 block rounded-lg bg-[#06165e] px-5 py-3 text-center text-white">Iniciar sesión</a>
+				<a href="registro.html" class="mt-5 block text-center text-[calc(.875rem+2px)] underline">Volver a Aulify</a>
+			</section>
+		</main>
+	<footer class="!static mt-auto w-full shrink-0 !block !h-auto !p-0 bg-gradient-to-b from-[#626780] via-[#484d63] to-[#171923] text-[#bfc0ca] [&>div>div>p]:!m-0 [&>div>div>p]:!text-[calc(0.6875rem+2px)] [&>div>div>p]:!leading-snug">
+			<div class="mx-auto flex min-h-52 max-w-7xl flex-col justify-between gap-6 px-6 py-6 sm:min-h-44">
+				<div class="flex flex-wrap items-center justify-between gap-3">
+					<a href="Index.html" class="flex items-center gap-2 text-white [@media(max-height:600px)]:hidden"><img src="aulify-icon.svg" alt="" class="h-8 w-8" /><span class="font-[Georgia] text-[calc(1.5rem+2px)] uppercase">Aulify</span></a>
+					<nav aria-label="Enlaces del pie de página" class="flex flex-wrap gap-4 text-[calc(.75rem+2px)]"><a href="Index.html" class="hover:underline">Inicio</a><a href="login.html" class="hover:underline">Mis clases</a></nav>
+				</div>
+				<div class="flex flex-col gap-2 text-[calc(0.6875rem+2px)] leading-snug">
+					<p>© 2026 Aulify. Todos los derechos reservados.</p>
+					<p>Si tiene algún problema con la página, escriba a <a href="mailto:aulify@soporte.com" class="underline">aulify@soporte.com</a>.</p>
+				</div>
+			</div>
+		</footer>
+</body>
+</html>

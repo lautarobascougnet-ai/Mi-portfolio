@@ -1,0 +1,110 @@
+<?php
+// Hereda únicamente fixtures en tablas temporales de la conexión de prueba.
+require __DIR__ . '/tests.php';
+$app = \Slim\Factory\AppFactory::create();
+require __DIR__ . '/routes.php';
+require __DIR__ . '/reservas-routes.php';
+$conexion->query("UPDATE solicitudes_profesor SET estado='aprobada' WHERE usuario_id=2");
+function flow($method, $url, $body = [], $csrf = true) {
+    global $app;
+    $parts = parse_url($url); parse_str($parts['query'] ?? '', $params);
+    $request = (new \Slim\Psr7\Factory\ServerRequestFactory())->createServerRequest($method, $parts['path'])->withQueryParams($params)->withParsedBody($body);
+    if ($csrf) $request = $request->withHeader('X-CSRF-Token', $_SESSION['classes_csrf'] ?? '');
+    $response = $app->handle($request);
+    return [$response->getStatusCode(), json_decode((string) $response->getBody(), true)];
+}
+$_SESSION = ['usuario_id' => 2]; flow('GET', '/classes/mine');
+$body['modalidad'] = 'ambas'; $body['permite_chat'] = '1';
+$created = flow('POST', '/classes', $body);
+check($created[0] === 201, 'Crea clase de ambas modalidades con chat');
+$classId = $created[1]['id'];
+$date = aulifyBookingNow()->modify('+7 days')->modify('next monday')->format('Y-m-d');
+$request = ['class_id' => $classId, 'inicio' => $date . ' 08:30:00', 'modalidad' => 'presencial'];
+$_SESSION['usuario_id'] = 1;
+check(flow('POST', '/bookings', array_merge($request, ['modalidad' => 'otra']))[0] === 422, 'Valida modalidad elegida');
+$reserved = flow('POST', '/bookings', $request); check($reserved[0] === 201, 'Solicita reserva'); $id = $reserved[1]['id'];
+$detail = flow('GET', '/bookings/detail?id=' . $id)[1]['booking'];
+check($detail['estado'] === 'pendiente' && $detail['modalidad'] === 'presencial', 'Pendiente, conserva modalidad');
+check(flow('POST', '/bookings', $request)[0] === 409, 'Pendiente bloquea turno duplicado');
+check(flow('POST', '/bookings/pay', ['id' => $id, 'metodo' => 'qr'])[0] === 409, 'No paga antes de aceptación');
+check(flow('POST', '/bookings/accept', ['id' => $id])[0] === 403, 'Alumno no acepta su reserva');
+check(flow('POST', '/bookings/message', ['id' => $id, 'texto' => 'Hola'])[0] === 403, 'No chatea antes de pagar');
+$_SESSION['usuario_id'] = 3;
+check(flow('GET', '/bookings/detail?id=' . $id)[0] === 404, 'Tercero no ve reserva ni comprobante');
+check(flow('POST', '/bookings/accept', ['id' => $id])[0] === 404, 'Tercero no acepta reserva');
+$_SESSION['usuario_id'] = 2;
+check(flow('POST', '/bookings/accept', ['id' => $id], false)[0] === 403, 'Aceptación requiere CSRF');
+check(flow('POST', '/bookings/accept', ['id' => $id])[0] === 200, 'Profesor acepta');
+check(flow('POST', '/bookings/pay', ['id' => $id, 'metodo' => 'qr'])[0] === 403, 'Profesor no paga por alumno');
+$_SESSION['usuario_id'] = 1;
+check(flow('GET', '/classes/mine')[1]['scheduled'][0]['estado_vista'] === 'aceptada', 'Alumno recibe aceptación en inicio');
+check(flow('POST', '/bookings/pay', ['id' => $id, 'metodo' => 'banco'])[0] === 422, 'Método inválido rechazado');
+$paid = flow('POST', '/bookings/pay', ['id' => $id, 'metodo' => 'qr']); check($paid[0] === 200, 'Paga QR simulado');
+check(flow('POST', '/bookings/pay', ['id' => $id, 'metodo' => 'qr'])[1]['reference'] === $paid[1]['reference'], 'Pago idempotente');
+check(flow('POST', '/bookings/message', ['id' => $id, 'texto' => '<script>Hola</script>'])[0] === 200, 'Alumno envía mensaje');
+$_SESSION['usuario_id'] = 2;
+$detail = flow('GET', '/bookings/detail?id=' . $id)[1]; check($detail['booking']['estado_vista'] === 'pagada' && count($detail['messages']) === 1, 'Profesor ve pago y chat');
+check(flow('GET', '/classes/mine')[1]['scheduled'][0]['mensajes_sin_leer'] === 1, 'Profesor tiene un mensaje sin leer');
+$lastMessage = (int) $detail['messages'][0]['id'];
+check(flow('POST', '/bookings/read', ['id' => $id, 'last_id' => $lastMessage], false)[0] === 403, 'Marcar lectura requiere CSRF');
+check(flow('POST', '/bookings/read', ['id' => $id, 'last_id' => $lastMessage + 100])[0] === 422, 'No permite adelantar cursor a mensajes inexistentes');
+check(flow('POST', '/bookings/read', ['id' => $id, 'last_id' => $lastMessage])[0] === 200, 'Profesor marca mensaje leído');
+check(flow('GET', '/classes/mine')[1]['scheduled'][0]['mensajes_sin_leer'] === 0, 'Lectura limpia el aviso del profesor');
+check(flow('POST', '/bookings/message', ['id' => $id, 'texto' => 'Nos vemos'])[0] === 200, 'Profesor responde');
+$_SESSION['usuario_id'] = 3;
+check(flow('POST', '/bookings/read', ['id' => $id, 'last_id' => $lastMessage])[0] === 404, 'Tercero no modifica lectura');
+check(flow('POST', '/bookings/message', ['id' => $id, 'texto' => 'Intruso'])[0] === 404, 'Tercero no escribe');
+$_SESSION['usuario_id'] = 1;
+check(flow('GET', '/classes/mine')[1]['scheduled'][0]['mensajes_sin_leer'] === 1, 'Alumno ve respuesta sin contar su propio mensaje');
+$reply = flow('GET', '/bookings/detail?id=' . $id)[1]['messages'][1]['id'];
+flow('POST', '/bookings/read', ['id' => $id, 'last_id' => $reply]);
+flow('POST', '/bookings/read', ['id' => $id, 'last_id' => $lastMessage]);
+check(flow('GET', '/classes/mine')[1]['scheduled'][0]['mensajes_sin_leer'] === 0, 'Lectura persistente no retrocede por respuestas tardías');
+$refund = flow('POST', '/bookings/cancel', ['id' => $id]); check($refund[1]['reembolso'] === 75.5, 'Cancela con devolución total a más de 48 h');
+check(flow('POST', '/bookings/message', ['id' => $id, 'texto' => 'Cerrado'])[0] === 403, 'Cancelación cierra chat');
+check(flow('GET', '/bookings/detail?id=' . $id)[1]['messages'] === [], 'Chat cancelado no se expone');
+// Casos de tiempo con reloj real y fixtures aislados: límite exacto, devolución parcial y cierre.
+$row = $detail['booking']; $row['inicio'] = aulifyBookingNow()->modify('+48 hours')->format('Y-m-d H:i:s');
+check(aulifyBookingView($row, 1)['devolucion_porcentaje'] === 100, 'Exactamente 48 horas devuelve todo');
+foreach (['transferencia', 'efectivo'] as $method) {
+    $reserved = flow('POST', '/bookings', $request); $id = $reserved[1]['id'];
+    $_SESSION['usuario_id'] = 2; flow('POST', '/bookings/accept', ['id' => $id]); $_SESSION['usuario_id'] = 1;
+    check(flow('POST', '/bookings/pay', ['id' => $id, 'metodo' => $method])[0] === 200, 'Pago simulado con ' . $method);
+    $conexion->execute_query('UPDATE aulify_reservas SET inicio=?,fin=? WHERE id=?', [aulifyBookingNow()->modify('+24 hours')->format('Y-m-d H:i:s'), aulifyBookingNow()->modify('+25 hours')->format('Y-m-d H:i:s'), $id]);
+    if ($method === 'transferencia') check(flow('POST', '/bookings/cancel', ['id' => $id])[1]['reembolso'] === 37.75, 'Menos de 48 h devuelve mitad');
+    else {
+        $_SESSION['usuario_id'] = 2; check(flow('POST', '/bookings/cancel', ['id' => $id])[1]['reembolso'] === 75.5, 'Profesor cancela con devolución completa'); $_SESSION['usuario_id'] = 1;
+    }
+}
+$conexion->execute_query('UPDATE aulify_clases SET permite_chat=0 WHERE id=?', [$classId]);
+$reserved = flow('POST', '/bookings', $request); $id = $reserved[1]['id'];
+$_SESSION['usuario_id'] = 2; flow('POST', '/bookings/accept', ['id' => $id]); $_SESSION['usuario_id'] = 1; flow('POST', '/bookings/pay', ['id' => $id, 'metodo' => 'qr']);
+check(!flow('GET', '/bookings/detail?id=' . $id)[1]['booking']['chat_activo'], 'Profesor deshabilita chat');
+check(flow('POST', '/bookings/message', ['id' => $id, 'texto' => 'No permitido'])[0] === 403, 'Servidor impide mensajes con chat deshabilitado');
+$conexion->execute_query('UPDATE aulify_reservas SET inicio=?,fin=?,permite_chat=1 WHERE id=?', [aulifyBookingNow()->modify('-2 hours')->format('Y-m-d H:i:s'), aulifyBookingNow()->modify('-1 hour')->format('Y-m-d H:i:s'), $id]);
+$ended = flow('GET', '/bookings/detail?id=' . $id)[1]['booking'];
+check($ended['estado_vista'] === 'pagada' && $ended['puede_finalizar'] && $ended['chat_activo'], 'Alumno puede finalizar después del horario y el chat sigue disponible');
+$_SESSION['usuario_id'] = 2;
+check(flow('POST', '/bookings/finish', ['id' => $id])[0] === 403, 'Profesor no finaliza en nombre del alumno');
+$_SESSION['usuario_id'] = 1;
+check(flow('POST', '/bookings/finish', ['id' => $id])[0] === 200, 'Alumno finaliza la clase');
+$ended = flow('GET', '/bookings/detail?id=' . $id)[1]['booking'];
+check($ended['estado_vista'] === 'terminada' && !$ended['chat_activo'], 'Clase finalizada aparece como terminada y cierra el chat');
+check(flow('POST', '/bookings/finish', ['id' => $id])[0] === 200, 'Finalizar la clase es idempotente');
+check(flow('POST', '/bookings/cancel', ['id' => $id])[0] === 409, 'No cancela después del inicio');
+
+$earlyRequest = ['class_id' => $classId, 'inicio' => $date . ' 09:30:00', 'modalidad' => 'virtual'];
+$earlyReserved = flow('POST', '/bookings', $earlyRequest);
+check($earlyReserved[0] === 201, 'Crea otra reserva futura para verificar el cierre anticipado');
+$earlyId = $earlyReserved[1]['id'];
+$_SESSION['usuario_id'] = 2;
+check(flow('POST', '/bookings/accept', ['id' => $earlyId])[0] === 200, 'Profesor acepta reserva futura');
+$_SESSION['usuario_id'] = 1;
+check(flow('POST', '/bookings/pay', ['id' => $earlyId, 'metodo' => 'qr'])[0] === 200, 'Alumno paga reserva futura');
+$earlyBooking = flow('GET', '/bookings/detail?id=' . $earlyId)[1]['booking'];
+check($earlyBooking['puede_finalizar'] && $earlyBooking['estado_vista'] === 'pagada', 'Alumno puede finalizar antes del horario');
+check(flow('POST', '/bookings/finish', ['id' => $earlyId])[0] === 200, 'Alumno finaliza antes del horario tras la confirmación');
+check(flow('GET', '/bookings/detail?id=' . $earlyId)[1]['booking']['estado_vista'] === 'terminada', 'Finalización anticipada queda como terminada');
+check(flow('POST', '/bookings/cancel', ['id' => $earlyId])[0] === 409, 'Clase finalizada anticipadamente ya no se puede cancelar');
+$_SESSION = []; check(flow('GET', '/bookings/detail?id=' . $id)[0] === 401, 'Reserva requiere sesión');
+echo "$checks verificaciones acumuladas correctas de modalidades, reservas, pagos y chat.\n";

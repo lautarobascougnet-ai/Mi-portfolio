@@ -1,0 +1,16 @@
+Options -Indexes
+# Solo estos recursos de la PWA son públicos. Claves, scripts y configuración no.
+Require all denied
+<FilesMatch "^(manifest\.webmanifest|offline\.html|pwa\.js|service-worker\.js|icon-(192|512)\.png|apple-touch-icon\.png|registro-qr\.png)$">
+    Require all granted
+</FilesMatch>
+<Files "service-worker.js">
+    Header set Service-Worker-Allowed "../../"
+    Header set Cache-Control "no-cache"
+</Files>
+<Files "Aulify-local.apk">
+    Require all granted
+    ForceType application/vnd.android.package-archive
+    Header set Content-Disposition "attachment; filename=Aulify-local.apk"
+    Header set Cache-Control "no-store"
+</Files>

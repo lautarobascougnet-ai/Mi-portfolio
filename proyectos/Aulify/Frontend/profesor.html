@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es" class="text-[100%] lg:text-[81.25%]">
+<head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Perfil del profesor | Aulify</title><link rel="icon" href="aulify-icon.svg" /><script src="https://cdn.tailwindcss.com"></script><script src="js/profesor.js?v=20261014" defer></script></head>
+<body class="text-[calc(1rem+2px)] min-h-screen bg-[#626780] text-[#171c24] [&_[hidden]]:!hidden [overflow-wrap:anywhere] flex min-h-screen flex-col !pb-0 [&[hidden]]:!hidden [&>main]:w-full [&>header]:w-full">
+	<header class="mx-auto flex max-w-6xl items-center justify-between px-6 py-6 text-white"><a href="home.html" class="flex items-center gap-3 font-[Georgia] text-[calc(1.5rem+2px)]"><img src="aulify-icon.svg" alt="" class="h-9 w-9" />AULIFY</a><a href="home.html">← Volver al inicio</a></header>
+	<main class="mx-auto max-w-4xl space-y-6 px-6 py-8">
+		<p id="profile-feedback" role="status" class="text-white">Cargando profesor…</p>
+		<section id="public-profile" hidden class="space-y-6">
+			<div class="flex items-center gap-5 text-white"><img id="teacher-photo" src="aulify-icon.svg" alt="Foto del profesor" class="h-20 w-20 rounded-full object-cover" /><div><p>Profesor</p><h1 id="teacher-name" class="mt-2 text-[calc(1.5rem+2px)] font-semibold"></h1><p id="teacher-rating" class="mt-2 text-[calc(.875rem+2px)]"></p></div></div>
+			<article class="rounded-xl bg-[#dce9f3] p-6"><h2 class="font-semibold">Experiencia y títulos</h2><p id="teacher-experience" class="mt-4 whitespace-pre-wrap"></p><p id="teacher-titles" class="mt-4 whitespace-pre-wrap"></p></article>
+			<article class="rounded-xl bg-[#dce9f3] p-6"><h2 class="font-semibold">Descripción</h2><p id="teacher-description" class="mt-4 whitespace-pre-wrap"></p></article>
+			<h2 class="text-[calc(1.25rem+2px)] font-semibold text-white">Clases de este profesor</h2><div id="teacher-classes" class="grid gap-5 sm:grid-cols-2"></div>
+		</section>
+	</main>
+<footer class="!static mt-auto w-full shrink-0 !block !h-auto !p-0 bg-gradient-to-b from-[#626780] via-[#484d63] to-[#171923] text-[#bfc0ca] [&>div>div>p]:!m-0 [&>div>div>p]:!text-[calc(0.6875rem+2px)] [&>div>div>p]:!leading-snug">
+			<div class="mx-auto flex min-h-52 max-w-7xl flex-col justify-between gap-6 px-6 py-6 sm:min-h-44">
+				<div class="flex flex-wrap items-center justify-between gap-3">
+					<a href="Index.html" class="flex items-center gap-2 text-white [@media(max-height:600px)]:hidden"><img src="aulify-icon.svg" alt="" class="h-8 w-8" /><span class="font-[Georgia] text-[calc(1.5rem+2px)] uppercase">Aulify</span></a>
+					<nav aria-label="Enlaces del pie de página" class="flex flex-wrap gap-4 text-[calc(.75rem+2px)]"><a href="Index.html" class="hover:underline">Inicio</a><a href="login.html" class="hover:underline">Mis clases</a></nav>
+				</div>
+				<div class="flex flex-col gap-2 text-[calc(0.6875rem+2px)] leading-snug">
+					<p>© 2026 Aulify. Todos los derechos reservados.</p>
+					<p>Si tiene algún problema con la página, escriba a <a href="mailto:aulify@soporte.com" class="underline">aulify@soporte.com</a>.</p>
+				</div>
+			</div>
+		</footer>
+</body></html>

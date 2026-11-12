@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es" class="text-[100%] lg:text-[81.25%]">
+<head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Agendar clase | Aulify</title><link rel="icon" href="aulify-icon.svg" /><script src="https://cdn.tailwindcss.com"></script><script src="js/api.js?v=20261014" defer></script><script src="js/clase.js?v=20261014" defer></script></head>
+<body class="text-[calc(1rem+2px)] min-h-screen bg-[#626780] text-[#171c24] [&_[hidden]]:!hidden [overflow-wrap:anywhere] flex min-h-screen flex-col !pb-0 [&[hidden]]:!hidden [&>main]:w-full [&>header]:w-full">
+	<header class="mx-auto flex max-w-6xl items-center justify-between px-6 py-6 text-white"><a href="home.html" class="flex items-center gap-3 font-[Georgia] text-[calc(1.5rem+2px)]"><img src="aulify-icon.svg" alt="" class="h-9 w-9" />AULIFY</a><a href="home.html">← Volver al inicio</a></header>
+	<main class="mx-auto max-w-6xl space-y-6 px-5 py-8 sm:px-8">
+		<p id="booking-feedback" role="status" aria-live="polite" class="text-white">Cargando clase…</p>
+		<section id="class-detail" hidden class="space-y-7">
+			<!-- Encabezado de la materia y acceso al perfil del profesor. -->
+			<div class="flex flex-wrap items-center justify-between gap-4 text-white"><div><h1 id="class-name" class="text-[calc(1.5rem+2px)] font-semibold"></h1><p class="mt-2 text-[calc(.875rem+2px)]">Horarios y días disponibles de la materia.</p></div><a id="class-teacher" class="text-[calc(.875rem+2px)] underline underline-offset-4"></a></div>
+			<!-- Calendario lateral y grilla de 24 horas, con los minutos reales de cada turno. -->
+			<div class="grid items-start gap-5 md:grid-cols-[17rem_minmax(0,1fr)]">
+				<aside class="rounded-xl bg-[#dce9f3] p-4 shadow-sm">
+					<div class="flex items-center justify-between gap-2"><button id="booking-prev" type="button" aria-label="Mes anterior" class="rounded-lg p-2 disabled:opacity-30">←</button><h2 id="booking-month" class="text-[calc(.875rem+2px)] font-semibold"></h2><button id="booking-next" type="button" aria-label="Mes siguiente" class="rounded-lg p-2 disabled:opacity-30">→</button></div>
+					<div class="mt-3 grid grid-cols-7 text-center text-[calc(.75rem+2px)]" aria-hidden="true"><span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span></div><div id="booking-calendar" class="mt-2 grid grid-cols-7 gap-1"></div>
+					<label class="mt-4 block text-[calc(.75rem+2px)]">Ir a una fecha<input id="booking-date" type="date" class="mt-2 block w-full min-w-0 rounded-lg bg-white p-2" /></label>
+				</aside>
+				<div class="min-w-0"><h2 id="booking-day" class="mb-3 text-[calc(.875rem+2px)] font-semibold text-white"></h2><div id="booking-slots" class="grid grid-cols-3 gap-px overflow-hidden rounded-lg border border-white/30 bg-white/30 sm:grid-cols-4 lg:grid-cols-8"></div><p id="slot-feedback" role="status" aria-live="polite" class="mt-3 text-[calc(.875rem+2px)] text-white"></p></div>
+			</div>
+			<div class="flex flex-wrap gap-2 text-[calc(.75rem+2px)]"><span class="rounded-lg bg-[#d7eadf] px-3 py-2 text-[#245c42]">Disponible</span><span class="rounded-lg bg-[#f2dede] px-3 py-2 text-[#804747]">No disponible</span><span class="rounded-lg bg-[#f6edc9] px-3 py-2 text-[#705a24]">Ocupado / coincide con otra clase</span><span class="rounded-lg bg-[#c8dff3] px-3 py-2 text-[#173b63]">Seleccionado</span></div>
+			<!-- Detalle y acción debajo del horario, como en la referencia. -->
+			<div class="flex flex-col justify-between gap-6 pt-3 text-white sm:flex-row sm:items-start"><div class="max-w-xl"><p id="class-rating" class="text-[calc(1.125rem+2px)] text-[#ffbb78]"></p><p id="class-price" class="mt-2 font-semibold text-[#a8e6a1]"></p><p id="class-description" class="mt-3 whitespace-pre-wrap text-[calc(.875rem+2px)] leading-6"></p><p class="mt-4 text-[calc(.75rem+2px)] text-white/80">Duración: 1 hora. Horarios de Buenos Aires (UTC−3). Esta reserva no realiza ningún cobro.</p></div><div class="sm:max-w-xs sm:text-right"><label class="mb-4 block text-[calc(.875rem+2px)]">Modalidad de tu reserva<select id="booking-mode" class="mt-2 block w-full rounded-lg bg-white p-3 text-[#171c24]"></select></label><p class="mb-3 text-[calc(.75rem+2px)]">El profesor debe aceptar tu solicitud. Después podrás realizar el pago simulado. Cancelación: devolución completa hasta 48 h antes; luego, 50 %.</p><p id="booking-selection" class="mb-4 text-[calc(.875rem+2px)]" aria-live="polite"></p><button id="confirm-booking" disabled class="rounded-full bg-[#06165e] px-6 py-3 text-white disabled:opacity-50">Solicitar reserva →</button></div></div>
+		</section>
+	</main>
+<footer class="!static mt-auto w-full shrink-0 !block !h-auto !p-0 bg-gradient-to-b from-[#626780] via-[#484d63] to-[#171923] text-[#bfc0ca] [&>div>div>p]:!m-0 [&>div>div>p]:!text-[calc(0.6875rem+2px)] [&>div>div>p]:!leading-snug">
+			<div class="mx-auto flex min-h-52 max-w-7xl flex-col justify-between gap-6 px-6 py-6 sm:min-h-44">
+				<div class="flex flex-wrap items-center justify-between gap-3">
+					<a href="Index.html" class="flex items-center gap-2 text-white [@media(max-height:600px)]:hidden"><img src="aulify-icon.svg" alt="" class="h-8 w-8" /><span class="font-[Georgia] text-[calc(1.5rem+2px)] uppercase">Aulify</span></a>
+					<nav aria-label="Enlaces del pie de página" class="flex flex-wrap gap-4 text-[calc(.75rem+2px)]"><a href="Index.html" class="hover:underline">Inicio</a><a href="login.html" class="hover:underline">Mis clases</a></nav>
+				</div>
+				<div class="flex flex-col gap-2 text-[calc(0.6875rem+2px)] leading-snug">
+					<p>© 2026 Aulify. Todos los derechos reservados.</p>
+					<p>Si tiene algún problema con la página, escriba a <a href="mailto:aulify@soporte.com" class="underline">aulify@soporte.com</a>.</p>
+				</div>
+			</div>
+		</footer>
+</body></html>

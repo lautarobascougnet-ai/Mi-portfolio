@@ -1,0 +1,9 @@
+{
+    "name": "aulify/aulify",
+    "description": "Plataforma Aulify para conectar estudiantes con profesores particulares.",
+    "license": "proprietary",
+    "require": {
+        "slim/slim": "^4.15",
+        "slim/psr7": "^1.7"
+    }
+}

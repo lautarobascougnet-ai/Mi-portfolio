@@ -1,0 +1,291 @@
+﻿BIBLIOGRAFÍA Y FUENTES DE AULIFY
+Fecha de elaboración: 12-10-2026
+
+1. ALCANCE DE ESTE REGISTRO
+===========================
+
+Este archivo reúne las fuentes utilizadas en las tareas documentadas en esta
+conversación: apuntes, reservas, pagos simulados, chat, avisos de mensajes,
+paginación, encabezado y explicación de tecnologías y funciones.
+
+La revisión se basó en el código local, los archivos del proyecto, las pruebas
+y las indicaciones e imágenes proporcionadas por el usuario.
+
+No se realizaron búsquedas web ni se consultaron páginas de documentación externa
+como investigación durante esas tareas. Por eso, los enlaces externos de este
+archivo se identifican como referencias presentes en el proyecto, no como
+páginas leídas para desarrollar estas funciones.
+
+No existe en el contexto disponible un historial completo de navegación de las
+etapas anteriores del proyecto. No se atribuyen consultas que no estén registradas.
+Las explicaciones generales también se apoyaron en conocimientos previos del
+asistente; no se puede asignar a esos conocimientos una página consultada concreta.
+
+2. DOCUMENTACIÓN LOCAL CONSULTADA
+=================================
+
+Aulify. Tecnologias.txt. Archivo local, revisado y actualizado el 12-10-2026.
+  Uso: inventario de herramientas, lenguajes y formatos. Se corrigieron
+  descripciones antiguas y se explicó cómo se usa cada tecnología.
+
+Aulify. funciones.txt. Archivo local, revisado y actualizado el 12-10-2026.
+  Uso: descripción de pantallas, roles, módulos, API, instalación y limitaciones.
+  Su contenido anterior incluía etapas históricas que se reorganizaron.
+
+Aulify. README.md. Archivo local.
+  Uso: contexto básico del repositorio e indicaciones existentes de Git.
+
+Aulify. Backend/conexiones/clases/FLUJO.md. Archivo local.
+  Uso: referencia del flujo de solicitud, aceptación, pago simulado,
+  cancelación y chat de una reserva.
+
+Las versiones actualizadas de Tecnologias.txt y funciones.txt describen el
+resultado del trabajo. No son publicaciones externas ni una verificación
+independiente del código.
+
+3. CÓDIGO LOCAL USADO COMO FUENTE PRIMARIA
+=========================================
+
+Una fuente primaria, en este caso, es el propio archivo que implementa una
+función. Permite comprobar qué hace realmente Aulify.
+Las rutas siguientes parten de C:\xampp\htdocs\aulify.
+
+Cuenta, navegación y API
+  Frontend/home.html
+  Frontend/Index.html
+  Frontend/js/home.js
+  Frontend/js/api.js
+  Backend/conexiones/api/index.php
+  Backend/base de datos/conexion.php
+  Backend/base de datos/aulifyb.sql
+  Uso: navegación, solicitudes del navegador, sesión, rutas y estructura de datos.
+
+Clases, horarios y reservas
+  Frontend/crearclase.html
+  Frontend/js/crearclase.js
+  Frontend/clase.html
+  Frontend/js/clase.js
+  Frontend/misclases.html
+  Frontend/js/misclases.js
+  Frontend/js/catalogo-clases.js
+  Backend/conexiones/clases/routes.php
+  Backend/conexiones/clases/reservas-routes.php
+  Backend/conexiones/clases/reservas.php
+  Backend/conexiones/clases/schema.sql
+  Backend/conexiones/clases/reservas-schema.sql
+  Backend/conexiones/clases/instalar.php
+  Uso: funcionamiento previo de publicaciones, disponibilidad y reservas,
+  sobre el que se incorporaron aceptación, modalidades y nuevos estados.
+
+Pagos simulados, chat y avisos
+  Frontend/reserva.html
+  Frontend/js/reserva.js
+  Frontend/js/reservas-home.js
+  Frontend/css/reservas.css
+  Backend/conexiones/clases/flujo.php
+  Backend/conexiones/clases/flujo-routes.php
+  Backend/conexiones/clases/flujo-schema.sql
+  Backend/conexiones/clases/flujo-instalar.php
+  Uso: implementación y comprobación del flujo nuevo, comprobantes ficticios,
+  privacidad, lectura de mensajes y avisos para ambos participantes.
+
+Apuntes
+  Frontend/apuntes.html
+  Frontend/js/apuntes.js
+  Frontend/css/apuntes.css
+  Backend/conexiones/apuntes/routes.php
+  Backend/conexiones/apuntes/schema.sql
+  Backend/conexiones/apuntes/instalar.php
+  Uso: creación y revisión del módulo privado de carpetas y apuntes.
+
+Identidad y recursos móviles
+  Backend/conexiones/identidad/config.example.php
+  Backend/conexiones/identidad/Didit.php
+  Backend/conexiones/identidad/routes.php
+  Frontend/js/vendor/qrcode.js
+  porteo/js/service-worker.js
+  porteo/js/servidor-https.cjs
+  porteo/preparar-sdk.ps1
+  Uso: comprobar referencias de configuración, servicio de identidad,
+  biblioteca QR, caché pública y rutas admitidas por el proxy local.
+  No se incluyen claves privadas ni el contenido de la configuración secreta.
+
+Algunos de estos archivos fueron creados durante el trabajo y luego revisados
+para documentar el resultado. No todos existían como fuente previa al desarrollo.
+Los listados de carpetas también se usaron para verificar nombres y ubicaciones;
+listar un archivo no equivale a haber leído todo su contenido.
+
+4. DEPENDENCIAS Y PROCEDENCIA DEL CÓDIGO DE TERCEROS
+===================================================
+
+composer.json
+  Uso: comprobar que la API utiliza Slim y slim/psr7.
+
+composer.lock
+  Uso: referencia local de versiones y procedencia de paquetes PHP.
+  Sus enlaces identifican el origen de dependencias; no prueban visitas web.
+
+porteo/tools/package.json
+  Uso: comprobar las dependencias directas de herramientas JavaScript:
+  qrcode, Sharp, Playwright Core y jsQR.
+
+porteo/tools/package-lock.json
+  Referencia del proyecto para las versiones exactas de dependencias Node.
+  No se presenta como una lectura exhaustiva de cada dependencia indirecta.
+
+Frontend/js/vendor/qrcode.js
+  Uso: verificar la biblioteca QR incorporada y su interfaz expuesta al navegador.
+  El archivo incluye información de licencia de terceros.
+
+No se considera código propio de Aulify al código distribuido por esas bibliotecas.
+Las licencias y créditos completos corresponden a los archivos de cada paquete.
+
+5. PRUEBAS UTILIZADAS PARA COMPROBAR EL FUNCIONAMIENTO
+=====================================================
+
+Las pruebas son evidencia del comportamiento observado, no bibliografía externa.
+
+Servidor PHP y base de datos temporal
+  Backend/conexiones/clases/tests.php
+  Backend/conexiones/clases/reservas-tests.php
+  Backend/conexiones/clases/flujo-tests.php
+  Backend/conexiones/apuntes/tests.php
+  Uso: comprobar permisos, creación, consultas, estados, pagos simulados,
+  cancelación, mensajes sin leer y privacidad sin modificar registros reales.
+
+Navegador automatizado con respuestas simuladas
+  porteo/tools/check-classes.cjs
+  porteo/tools/check-schedule.cjs
+  porteo/tools/check-bookings.cjs
+  porteo/tools/check-reservation-flow.cjs
+  porteo/tools/check-message-notifications.cjs
+  porteo/tools/check-notes.cjs
+  Uso: comprobar formularios, navegación, paginación, avisos, editor de apuntes,
+  medios de pago ficticios y presentación en distintos anchos de pantalla.
+
+También se realizaron comprobaciones de sintaxis PHP/JavaScript, revisión de
+cambios y una comprobación puntual del encabezado con navegador automatizado.
+Las pantallas móviles emuladas no equivalen a pruebas en teléfonos físicos.
+
+6. PÁGINAS LOCALES ABIERTAS DURANTE LAS PRUEBAS
+==============================================
+
+Estas direcciones pertenecen al proyecto ejecutado en la computadora local.
+Son pantallas probadas, no sitios externos de investigación.
+Los identificadores de ejemplo corresponden a datos simulados en las pruebas.
+
+http://localhost/aulify/Frontend/home.html
+  Inicio, avisos de aceptación y mensajes sin leer.
+
+http://localhost/aulify/Frontend/Index.html
+  Catálogo público en las pruebas de clases.
+
+http://localhost/aulify/Frontend/crearclase.html
+  Creación, modalidades y disponibilidad.
+
+http://localhost/aulify/Frontend/clase.html?id=10
+  Ejemplo de selección de horario y solicitud de reserva.
+
+http://localhost/aulify/Frontend/profesor.html?id=2
+  Ejemplo de perfil profesional en el recorrido de reserva.
+
+http://localhost/aulify/Frontend/misclases.html
+  Listados de clases, estados, avisos y páginas independientes.
+
+http://localhost/aulify/Frontend/reserva.html?id=1
+http://localhost/aulify/Frontend/reserva.html?id=5
+http://localhost/aulify/Frontend/reserva.html?id=11
+  Ejemplos de detalle, aceptación, pago simulado, chat y lectura de mensajes.
+
+http://localhost/aulify/Frontend/apuntes.html
+  Carpetas, creación y edición de apuntes y paginación.
+
+http://localhost/aulify/Backend/conexiones/api/notes
+  Comprobación HTTP de rechazo al consultar apuntes sin sesión.
+
+Las pruebas pueden agregar parámetros de navegación o abrir otras rutas del
+mismo flujo. No se dispone de una exportación completa de cada solicitud de red;
+esta sección identifica las pantallas y comprobaciones del trabajo registrado.
+
+7. ENLACES EXTERNOS IDENTIFICADOS EN LOS ARCHIVOS
+================================================
+
+IMPORTANTE: referencias encontradas en el proyecto. No se visitaron como
+investigación bibliográfica durante estas tareas. Una carga automática de
+fuentes o scripts en una prueba tampoco equivale a leer documentación.
+
+Tailwind CSS: distribución del script por CDN
+  URL: https://cdn.tailwindcss.com
+  Fuente local: Frontend/home.html y Frontend/Index.html.
+  Uso en el proyecto: cargar las utilidades de diseño.
+
+Google Fonts: hoja de estilos de Space Grotesk
+  URL: https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap
+  Fuente local: Frontend/home.html.
+  Uso en el proyecto: cargar la tipografía.
+  Otros hosts referenciados: https://fonts.googleapis.com y https://fonts.gstatic.com.
+
+Unsplash: recurso de imagen de presentación
+  URL: https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1200&q=85
+  Fuente local: Frontend/Index.html.
+  Uso en el proyecto: imagen de la presentación pública.
+  El autor y título de la fotografía no se verificaron en esta revisión.
+
+Didit: dirección de la API de verificación
+  URL base: https://verification.didit.me/v3/
+  Fuente local: Backend/conexiones/identidad/Didit.php.
+  Uso en el proyecto: solicitudes del servidor al servicio de identidad.
+  Es una dirección de API, no una página de documentación consultada.
+
+Google: repositorio de herramientas Android
+  URL base: https://dl.google.com/android/repository/
+  Fuente local: porteo/preparar-sdk.ps1.
+  Uso en el proyecto: construir enlaces de descarga de herramientas Android.
+  Durante esta tarea no se descargaron herramientas desde esa dirección.
+
+Composer: referencia de instalación de dependencias
+  URL: https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies
+  Fuente local: encabezado de composer.lock.
+  Uso de esta referencia: enlace explicativo incluido por Composer en su archivo.
+  No fue abierto como documentación durante esta revisión.
+
+PHP-FIG: referencia de autoría de una dependencia
+  URL: https://www.php-fig.org/
+  Fuente local: metadatos de fig/http-message-util en composer.lock.
+  Uso de esta referencia: identificar la organización declarada en el paquete.
+
+Repositorio de fig/http-message-util
+  URL: https://github.com/php-fig/http-message-util.git
+  Fuente local: campo source.url de composer.lock.
+  Uso de esta referencia: procedencia del código de esa dependencia.
+
+composer.lock y package-lock.json contienen además enlaces de descarga y
+repositorios de dependencias. No se enumeran como páginas investigadas porque
+son metadatos de instalación, no un historial de consulta bibliográfica.
+
+8. MATERIAL APORTADO POR EL USUARIO
+===================================
+
+Indicaciones escritas de esta conversación
+  Uso: definir requisitos de carpetas, apuntes, privacidad, modalidades,
+  aceptación, pago simulado, cancelación, chat, avisos y paginación.
+
+Imagen de referencia de la sección Apuntes
+  Uso: distribución visual de cuatro carpetas por página.
+  Procedencia: imagen adjunta por el usuario; sin URL pública disponible.
+
+Captura de la pantalla Tu reserva
+  Uso: identificar y corregir el encabezado.
+  Procedencia: imagen adjunta por el usuario; sin URL pública disponible.
+
+No se inventan autores, títulos editoriales o direcciones web para esas imágenes.
+
+9. CÓMO INTERPRETAR ESTA BIBLIOGRAFÍA
+====================================
+
+- Para comprobar qué hace Aulify: revisar el código y las pruebas citadas.
+- Para entenderlo de manera sencilla: leer funciones.txt y Tecnologias.txt.
+- Para saber qué documentación web se investigó en estas tareas: no hubo
+  consultas externas registradas; los enlaces anteriores tienen otra procedencia.
+- Para reconstruir etapas anteriores: hace falta su historial de fuentes.
+  Este archivo no afirma contener una navegación que no está disponible.

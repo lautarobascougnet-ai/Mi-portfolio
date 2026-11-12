@@ -1,0 +1,81 @@
+AULIFY: HTTPS LOCAL Y APK ANDROID
+06-10-2026
+
+No se publicó la página en Internet. El teléfono y la PC deben estar
+conectados al mismo router. La PC debe permanecer encendida con Apache
+y MySQL de XAMPP iniciados. Tailwind por CDN requiere acceso a Internet.
+
+INICIAR
+1. Ejecutar porteo/iniciar.cmd (requiere Node.js).
+2. Mantener abierta esa ventana mientras se use la app.
+3. Si Windows bloquea el acceso desde el teléfono, revisar y ejecutar
+   porteo/habilitar-red.ps1 en PowerShell como administrador.
+   Habilita únicamente TCP 8443 y 8081 para la red privada y subred local.
+   No se modificó automáticamente el firewall: la revisión automática
+   de permisos falló por límite de uso. No abrir estos puertos al Internet.
+4. Consultar porteo/estado/ACCESO_TELEFONO.txt para la dirección actual.
+
+APK (ANDROID 8 O POSTERIOR; NO IPHONE)
+- Archivo generado: porteo/dist/Aulify-local.apk.
+- Copiar ese archivo al teléfono, por ejemplo mediante USB; abrirlo e
+  instalarlo autorizando esa fuente solo si se confía en este proyecto.
+- Abrir Aulify con el servidor anterior activo en la PC.
+- El APK incluye el certificado público local para esta IP; no requiere
+  instalar la CA en todo Android. No ignora errores de certificados.
+- Es una compilación local de desarrollo, no una publicación en Play Store.
+- No incluye PHP ni MySQL: necesita conectarse a la PC.
+- No se probó en un teléfono físico.
+
+PWA (ALTERNATIVA DESDE EL NAVEGADOR)
+- Descargar el certificado propio desde la URL indicada en
+  estado/ACCESO_TELEFONO.txt e instalarlo como certificado de confianza.
+  Esto amplía la confianza del teléfono: hacerlo solo en dispositivos
+  propios de prueba y eliminarlo al dejar de usar este servidor.
+- En iPhone, además del perfil, habilitar explícitamente confianza SSL
+  en Ajustes > General > Información > Ajustes de confianza de certificados.
+- Abrir la dirección HTTPS indicada en ese archivo.
+- Android: menú del navegador > Instalar aplicación / Agregar a inicio.
+- iPhone: Safari > Compartir > Agregar a inicio.
+
+SI CAMBIA LA IP
+- Ejecutar iniciar.cmd de nuevo para regenerar la configuración.
+- Ejecutar compilar-apk.cmd y reinstalar el APK actualizado.
+- compilar-apk.cmd requiere Java (JDK), Node.js y PowerShell. Descarga
+  herramientas oficiales de Android si faltan; necesita conexión.
+- Mantener privado/ca.key y privado/android-local.keystore fuera de repositorios
+  y de cualquier publicación. Conservar las claves para futuras versiones.
+- La carpeta privado, certificados, estado, logs, sdk, descargas, build y
+  dist se excluye de Git. .htaccess bloquea los archivos no públicos.
+
+REGISTRO Y VERIFICACIÓN
+- Primero aparece el formulario tanto en PC como en celular.
+- Se integró Didit: documento argentino, prueba de vida y comparación facial.
+- Configuración privada: Backend/conexiones/identidad/config.local.php.
+- Estado comprobado el 06-10-2026: Sandbox habilitado, clave y workflow
+  confirmados con Didit. Se probó el inicio de sesión sin subir imágenes.
+- Usar únicamente datos/documentos de muestra, nunca DNI ni selfies reales
+  en Sandbox. Los resultados son simulados y no crean cuentas en Aulify.
+- Antes de Live, revisar retención, privacidad y costos en Didit.
+- Mientras esté desactivado no se envían los datos del formulario.
+- Una vez habilitado, PC muestra un QR privado que abre el APK Android;
+  desde el teléfono se continúa directamente hacia la verificación.
+- Didit se abre en el navegador y vuelve a Aulify al terminar. El backend
+  consulta y valida el resultado; el retorno por sí solo no crea la cuenta.
+- Sandbox no crea usuarios. La captura no puede completarse en dos segundos.
+- No se realizó una verificación real ni una prueba en Android físico.
+- La versión actual del APK puede descargarse por HTTPS en
+  /aulify/porteo/dist/Aulify-local.apk (el navegador debe confiar en la CA).
+
+COMPROBACIONES DESDE LA RAÍZ
+node porteo/tools/check-registration.cjs
+node porteo/tools/check-identity.cjs (equivalente al anterior)
+php Backend/conexiones/identidad/tests.php
+php Backend/conexiones/identidad/probar_configuracion.php (consulta el workflow)
+php Backend/conexiones/identidad/probar_configuracion.php --flow (crea una sesión Sandbox sin capturas; almacenamiento local temporal)
+node porteo/tools/check-mobile.cjs
+node porteo/tools/check-https.cjs (con servidor HTTPS iniciado)
+
+FUENTES OFICIALES
+https://developer.android.com/privacy-and-security/security-config
+https://support.google.com/pixelphone/answer/2844832
+https://support.apple.com/en-au/102390

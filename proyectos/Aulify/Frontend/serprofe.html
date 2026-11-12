@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es" class="text-[100%] lg:text-[81.25%]">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" href="aulify-icon.svg" type="image/svg+xml" />
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script src="js/api.js?v=20261014"></script>
+		<script src="js/serprofe.js?v=20261014" defer></script>
+		<link rel="manifest" href="../porteo/manifest.webmanifest" />
+		<link rel="apple-touch-icon" href="../porteo/icons/apple-touch-icon.png" />
+		<meta name="theme-color" content="#626780" />
+		<script src="../porteo/js/pwa.js" defer></script>
+		<title>Ser profesor | Aulify</title>
+	</head>
+	<body hidden data-private-page class="text-[calc(1rem+2px)] [&_[hidden]]:!hidden [overflow-wrap:anywhere] [&_input]:min-w-0 [&_input]:max-w-full min-h-screen bg-[#626780] text-[#171c24] antialiased flex min-h-screen flex-col !pb-0 [&[hidden]]:!hidden [&>main]:w-full [&>header]:w-full">
+		<!-- Encabezado y vuelta al inicio. -->
+		<header class="fixed inset-x-0 top-0 z-50 bg-[#626780]/95 backdrop-blur-md">
+			<div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4">
+				<a href="home.html" class="flex shrink-0 items-center gap-3 text-white">
+					<img src="aulify-icon.svg" alt="" class="h-9 w-9" />
+					<span class="font-[Georgia] text-[calc(1.5rem+2px)] uppercase tracking-[-0.05em]">Aulify</span>
+				</a>
+				<a href="home.html" class="text-[calc(.875rem+2px)] text-white hover:text-[#a8e6a1]">← Volver atrás</a>
+			</div>
+		</header>
+		<main class="mx-auto w-full max-w-lg px-6 pb-14 pt-28">
+			<!-- Formulario de solicitud para ser profesor. -->
+			<section id="teacher-application-card" class="rounded-xl bg-[#dce9f3] p-6 shadow-xl sm:p-9" aria-labelledby="teacher-title">
+				<h1 id="teacher-title" class="text-center text-[calc(1.5rem+2px)] font-medium uppercase">Ser profesor</h1>
+				<div class="mx-auto mb-6 mt-4 h-px w-3/5 bg-[#171c24]" aria-hidden="true"></div>
+				<p id="teacher-status" role="status" aria-live="polite" class="mb-4 text-[calc(.875rem+2px)] text-[#52616b]">Cargando tus datos…</p>
+				<form id="teacher-form" class="space-y-4">
+					<fieldset id="teacher-fields" disabled class="space-y-4 disabled:opacity-60">
+						<!-- Datos personales de la solicitud, separados de la cuenta. -->
+						<label class="block text-[calc(.75rem+2px)] font-semibold uppercase">Nombre y apellido
+							<input name="nombre_completo" required minlength="3" maxlength="150" autocomplete="name" placeholder="Nombre completo y apellido" class="mt-1 block w-full rounded-lg border border-[#bacbd8] bg-[#f5f7fa] px-3 py-2.5 text-[calc(.875rem+2px)] text-[#171c24] outline-none focus:border-[#06165e] focus:ring-2 focus:ring-[#06165e]/20" />
+						</label>
+						<label class="block text-[calc(.75rem+2px)] font-semibold uppercase">Nombre de usuario
+							<input name="nombre_usuario" required minlength="3" maxlength="50" autocomplete="username" placeholder="Introduce tu usuario" class="mt-1 block w-full rounded-lg border border-[#bacbd8] bg-[#f5f7fa] px-3 py-2.5 text-[calc(.875rem+2px)] text-[#171c24] outline-none focus:border-[#06165e] focus:ring-2 focus:ring-[#06165e]/20" />
+						</label>
+						<!-- Materia y correo de contacto de la solicitud. -->
+						<label class="block text-[calc(.75rem+2px)] font-semibold uppercase">Correo para recibir la revisión<input name="email_solicitud" type="email" required maxlength="254" class="mt-1 block w-full rounded-lg border border-[#bacbd8] bg-[#f5f7fa] p-3 text-[calc(.875rem+2px)]" /></label>
+						<label class="block text-[calc(.75rem+2px)] font-semibold uppercase">¿Qué materia vas a enseñar?<input name="materia" required maxlength="100" placeholder="Por ejemplo, Inglés" class="mt-1 block w-full rounded-lg border border-[#bacbd8] bg-[#f5f7fa] p-3 text-[calc(.875rem+2px)]" /></label>
+						<p class="text-[calc(.75rem+2px)] text-[#52616b]">Si la materia no existe en el catálogo, también tendrá que aprobarla el administrador antes de publicar clases.</p>
+						<!-- Experiencia y título adjunto opcional. -->
+						<label class="block text-[calc(.75rem+2px)] font-semibold uppercase">Descripción de experiencias y títulos
+							<textarea name="experiencia" required minlength="20" maxlength="4000" rows="3" placeholder="Describí tu experiencia y estudios (mínimo 20 caracteres)" class="mt-1 block w-full rounded-lg border border-[#bacbd8] bg-[#f5f7fa] px-3 py-2.5 text-[calc(.875rem+2px)] text-[#171c24] outline-none focus:border-[#06165e] focus:ring-2 focus:ring-[#06165e]/20 resize-y"></textarea>
+						</label>
+						<label class="block text-[calc(.75rem+2px)] font-medium text-[#06165e]">Agregar imagen de título (opcional)
+							<input id="teacher-certificate" name="titulo" type="file" accept="image/jpeg,image/png,image/webp" class="mt-2 block w-full text-[calc(.75rem+2px)] file:mr-2 file:rounded-lg file:border-0 file:bg-[#06165e] file:px-3 file:py-2 file:text-white" />
+						</label>
+						<p class="text-[calc(.75rem+2px)] text-[#52616b]">JPG, PNG o WEBP. Hasta 2 MB. Se guarda de forma privada con tu solicitud.</p>
+						<p id="saved-certificate" class="text-[calc(.75rem+2px)] text-[#52616b]"></p>
+						<label id="remove-certificate-label" class="hidden items-center gap-2 text-[calc(.75rem+2px)]"><input name="eliminar_titulo" type="checkbox" value="1" class="h-4 w-4 accent-[#06165e]" /> Quitar el título guardado</label>
+						<label class="block text-[calc(.75rem+2px)] font-semibold uppercase">Descripción
+							<textarea name="descripcion" required minlength="20" maxlength="2000" rows="4" placeholder="Contanos cómo son tus clases (mínimo 20 caracteres)" class="mt-1 block w-full rounded-lg border border-[#bacbd8] bg-[#f5f7fa] px-3 py-2.5 text-[calc(.875rem+2px)] text-[#171c24] outline-none focus:border-[#06165e] focus:ring-2 focus:ring-[#06165e]/20 resize-y"></textarea>
+						</label>
+						<label class="block text-[calc(.75rem+2px)] font-semibold uppercase">¿Por qué querés ser profesor?
+							<textarea name="motivacion" required minlength="20" maxlength="2000" rows="4" placeholder="Tu motivación para enseñar (mínimo 20 caracteres)" class="mt-1 block w-full rounded-lg border border-[#bacbd8] bg-[#f5f7fa] px-3 py-2.5 text-[calc(.875rem+2px)] text-[#171c24] outline-none focus:border-[#06165e] focus:ring-2 focus:ring-[#06165e]/20 resize-y"></textarea>
+						</label>
+						<!-- Estudios: ninguno es excluyente respecto de los otros dos. -->
+						<fieldset class="space-y-2 text-[calc(.75rem+2px)]">
+							<legend class="mb-2 font-semibold uppercase">¿Qué estudios tenés?</legend>
+							<label class="flex items-center gap-2"><input type="checkbox" name="estudios[]" value="secundaria" class="h-4 w-4 accent-[#06165e]" /> Secundaria completa</label>
+							<label class="flex items-center gap-2"><input type="checkbox" name="estudios[]" value="universidad" class="h-4 w-4 accent-[#06165e]" /> Carrera universitaria completa</label>
+							<label class="flex items-center gap-2"><input type="checkbox" name="estudios[]" value="ninguno" class="h-4 w-4 accent-[#06165e]" /> Ningún estudio completo</label>
+						</fieldset>
+						<p class="text-[calc(.75rem+2px)] leading-5 text-[#52616b]">El envío guarda una solicitud pendiente de revisión. No publica un perfil ni cambia automáticamente tu cuenta.</p>
+						<button id="teacher-submit" type="submit" class="w-full rounded-full bg-[#06165e] px-5 py-3 text-[calc(.875rem+2px)] font-semibold uppercase text-white hover:bg-[#142b7a] disabled:opacity-50">Enviar formulario</button>
+					</fieldset>
+				</form>
+			</section>
+			<!-- Espera y resolución: los datos siempre se consultan al servidor. -->
+			<section id="teacher-wait" hidden class="rounded-xl bg-[#dce9f3] p-7 text-center shadow-xl sm:p-9" aria-labelledby="review-title">
+				<h1 id="review-title" class="text-[calc(1.5rem+2px)] font-semibold">Solicitud pendiente de revisión</h1>
+				<p id="review-description" class="mt-5 text-[calc(.875rem+2px)] leading-6 text-[#52616b]"></p>
+				<p id="review-reason" class="mt-4 whitespace-pre-wrap text-[calc(.875rem+2px)]"></p>
+				<p id="review-poll-status" role="status" aria-live="polite" class="mt-4 text-[calc(.875rem+2px)] text-[#52616b]"></p>
+				<a id="teacher-continue" href="user.html" hidden class="mt-6 block rounded-full bg-[#06165e] px-5 py-3 text-white">Continuar a mi perfil de profesor</a>
+				<button id="review-refresh" type="button" class="mt-5 rounded-full border border-[#06165e] px-5 py-3 text-[calc(.875rem+2px)]">Comprobar estado</button>
+			</section>
+		</main>
+		<!-- Pie de página al final del contenido, sin superponerse a la pantalla. -->
+<footer class="!static mt-auto w-full shrink-0 !block !h-auto !p-0 bg-gradient-to-b from-[#626780] via-[#484d63] to-[#171923] text-[#bfc0ca] [&>div>div>p]:!m-0 [&>div>div>p]:!text-[calc(0.6875rem+2px)] [&>div>div>p]:!leading-snug">
+			<div class="mx-auto flex min-h-52 max-w-7xl flex-col justify-between gap-6 px-6 py-6 sm:min-h-44">
+				<div class="flex flex-wrap items-center justify-between gap-3">
+					<a href="home.html" class="flex items-center gap-2 text-white [@media(max-height:600px)]:hidden"><img src="aulify-icon.svg" alt="" class="h-8 w-8" /><span class="font-[Georgia] text-[calc(1.5rem+2px)] uppercase">Aulify</span></a>
+					<nav aria-label="Enlaces del pie de página" class="flex flex-wrap gap-4 text-[calc(.75rem+2px)]"><a href="home.html" class="hover:underline">Inicio</a><a href="misclases.html" class="hover:underline">Mis clases</a></nav>
+				</div>
+				<div class="flex flex-col gap-2 text-[calc(0.6875rem+2px)] leading-snug">
+					<p>© 2026 Aulify. Todos los derechos reservados.</p>
+					<p>Si tiene algún problema con la página, escriba a <a href="mailto:aulify@soporte.com" class="underline">aulify@soporte.com</a>.</p>
+				</div>
+			</div>
+		</footer>
+	</body>
+</html>
