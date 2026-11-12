@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio personal y proyectos de desarrollo web.">
+  <meta name="theme-color" content="#101a2b">
+  <title>Portfolio | Bascougnet Lautaro Ezequiel</title>
+  <link rel="icon" href="img/aulify-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <div class="background-glow glow-one"></div>
+  <div class="background-glow glow-two"></div>
+  <header class="site-header">
+    <a class="brand" href="#inicio" aria-label="Ir al inicio"><span class="brand-mark">LB</span><span>Portfolio<span class="brand-dot">.</span></span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+    <nav class="nav" id="nav">
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#habilidades">Habilidades</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#contacto" class="nav-cta">Contacto ↗</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">☼</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero section" id="inicio">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="status-dot"></span> PORTFOLIO PERSONAL · DESARROLLO WEB</p>
+        <h1>Hola, soy <span class="gradient-text">Lautaro.</span><br>Creo ideas y las convierto en proyectos.</h1>
+        <p class="hero-description">Soy estudiante con interés en la programación y el desarrollo de soluciones digitales. Este espacio reúne algunos de mis trabajos y el proceso detrás de ellos.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#proyectos">Ver mis proyectos <span>↓</span></a>
+          <a class="button button-ghost" href="#sobre-mi">Conocer más</a>
+        </div>
+        <div class="hero-meta"><span>📍 Tandil, Buenos Aires</span><span>✦ Aprendiendo y construyendo</span></div>
+      </div>
+      <div class="hero-art" aria-label="Ilustración decorativa de código">
+        <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+        <div class="code-card">
+          <div class="window-dots"><i></i><i></i><i></i><span>portfolio.js</span></div>
+          <pre><code><b>const</b> developer = {
+  nombre: <em>"Lautaro"</em>,
+  intereses: [
+    <em>"Programación"</em>,
+    <em>"Desarrollo web"</em>,
+    <em>"Tecnología"</em>
+  ],
+  objetivo: <em>"Seguir creando"</em>
+};
+
+developer.<strong>crear</strong>();</code></pre>
+          <div class="code-footer"><span>●</span> Proyecto en constante evolución</div>
+        </div>
+        <div class="floating-chip chip-top"> &lt;/&gt; HTML · CSS · JS</div>
+        <div class="floating-chip chip-bottom">✦ Ideas en construcción</div>
+      </div>
+    </section>
+
+    <section class="section about-section" id="sobre-mi">
+      <div class="section-heading"><p class="eyebrow">01 / SOBRE MÍ</p><h2>Un poco sobre <span class="gradient-text">mi recorrido.</span></h2></div>
+      <div class="about-grid">
+        <article class="about-card about-main"><div class="about-icon">✳</div><h3>Aprender haciendo</h3><p>Me interesa entender cómo funcionan las herramientas digitales y utilizarlas para resolver problemas reales. Disfruto trabajar en proyectos que combinan lógica, creatividad y tecnología.</p></article>
+        <article class="about-card"><div class="about-icon">⌘</div><h3>Mi enfoque</h3><p>Investigar, probar alternativas, detectar errores y mejorar las soluciones paso a paso.</p></article>
+        <article class="about-card"><div class="about-icon">↗</div><h3>Mi objetivo</h3><p>Seguir desarrollando mis conocimientos y sumar experiencia en programación y diseño de aplicaciones.</p></article>
+      </div>
+    </section>
+
+    <section class="section skills-section" id="habilidades">
+      <div class="section-heading"><p class="eyebrow">02 / HERRAMIENTAS</p><h2>Tecnologías e <span class="gradient-text">intereses.</span></h2><p class="section-intro">Herramientas y áreas relacionadas con los proyectos que estoy desarrollando.</p></div>
+      <div class="skills-list">
+        <span class="skill">HTML5</span><span class="skill">CSS3</span><span class="skill">JavaScript</span><span class="skill">PHP</span><span class="skill">SQL</span><span class="skill">Git / GitHub</span><span class="skill">Desarrollo web</span><span class="skill">Diseño responsivo</span>
+      </div>
+      <p class="small-note">Las tecnologías se muestran según los archivos y herramientas presentes en el proyecto Aulify.</p>
+    </section>
+
+    <section class="section projects-section" id="proyectos">
+      <div class="section-heading projects-heading"><div><p class="eyebrow">03 / TRABAJOS</p><h2>Proyectos <span class="gradient-text">destacados.</span></h2><p class="section-intro">Una selección de trabajos y desarrollos en los que participé.</p></div><span class="project-count">01 PROYECTO</span></div>
+      <article class="project-card">
+        <div class="project-visual">
+          <div class="aulify-preview">
+            <div class="aulify-top"><img src="img/aulify-icon.svg" alt="Logo de Aulify"><span>AULIFY</span><small>APRENDER, A TU MANERA</small></div>
+            <div class="aulify-slogan">Encuentra a quien te ayude a <b>llegar más lejos.</b></div>
+            <div class="aulify-lines"><i></i><i></i><i></i></div>
+            <div class="aulify-pill">Plataforma educativa</div>
+          </div>
+          <span class="visual-label">PROYECTO PRINCIPAL</span>
+        </div>
+        <div class="project-info">
+          <div class="project-topline"><span class="project-type">DESARROLLO WEB</span><span class="project-number">01 — 01</span></div>
+          <h3>Aulify</h3>
+          <p class="project-lead">Una plataforma que busca conectar estudiantes con profesores particulares.</p>
+          <p>Aulify reúne distintas herramientas para facilitar el encuentro entre personas que quieren aprender y quienes ofrecen clases. El código incluye páginas de presentación, registro e inicio de sesión, perfiles, catálogo de clases, reservas y apuntes, además de un backend desarrollado en PHP y archivos de base de datos SQL.</p>
+          <div class="tag-list"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>PHP</span><span>SQL</span></div>
+          <div class="project-actions">
+            <a class="text-link" href="proyectos/Aulify/Frontend/Index.html" target="_blank" rel="noopener">Ver página de inicio ↗</a>
+            <a class="text-link" href="proyectos/Aulify/" target="_blank" rel="noopener">Ver carpeta del proyecto ↗</a>
+          </div>
+          <p class="project-disclaimer">Nota: GitHub Pages publica sitios estáticos. Las funciones que necesitan PHP o base de datos requieren un servidor compatible y no se ejecutan desde esta publicación.</p>
+        </div>
+      </article>
+      <div class="coming-soon"><span>+</span><div><b>Más proyectos en camino</b><p>Este portfolio se puede ampliar a medida que se incorporen nuevos trabajos.</p></div></div>
+    </section>
+
+    <section class="section contact-section" id="contacto">
+      <div class="contact-panel"><p class="eyebrow">04 / CONTACTO</p><h2>¿Hablamos de <span class="gradient-text">ideas?</span></h2><p>Este portfolio es una presentación de mis trabajos y de mi recorrido como estudiante. Gracias por visitarlo.</p><a class="button button-primary" href="#inicio">Volver al inicio ↑</a></div>
+    </section>
+  </main>
+  <footer class="footer"><a class="brand" href="#inicio"><span class="brand-mark">LB</span><span>Portfolio<span class="brand-dot">.</span></span></a><span>Hecho con HTML, CSS y JavaScript.</span><span>© <span id="year"></span> · Bascougnet Lautaro Ezequiel</span></footer>
+</body>
+</html>
